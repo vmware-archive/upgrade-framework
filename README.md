@@ -1,5 +1,6 @@
 Overview
 =================
+[![Build Status](https://travis-ci.org/vmware/upgrade-framework.svg?branch=master)](https://travis-ci.org/vmware/upgrade-framework)
 
 The `upgrade-framework` is a product-agnostic framework for defining and sequencing upgrades.
 
