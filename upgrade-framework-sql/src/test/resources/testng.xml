@@ -1,0 +1,11 @@
+<!--
+  Copyright (c) 2013-2014 VMware, Inc. All Rights Reserved.
+-->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Upgrade Framework SQL Test Suite" verbose="1" parallel="tests" thread-count="1">
+    <test name="Default">
+        <packages>
+            <package name="com.vmware.upgrade.sql.*" />
+        </packages>
+    </test>
+</suite>

@@ -1,0 +1,6 @@
+Bundle-SymbolicName: com.vmware.upgrade.sql.dsl
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: *
+Import-Package: com.vmware.upgrade.dsl.syntax,\
+  com.vmware.upgrade.sql.task,\
+  *

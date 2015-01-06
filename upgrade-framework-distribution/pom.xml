@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>upgrade-framework-distribution</artifactId>
+
+    <name>upgrade-framework-distribution</name>
+    <description>Module for assembling a distribution for all upgrade-framework modules.</description>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.vmware.vcloud</groupId>
+        <artifactId>upgrade-framework-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.vmware.vcloud</groupId>
+            <artifactId>upgrade-framework-parent</artifactId>
+            <version>${pom.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vmware.vcloud</groupId>
+            <artifactId>upgrade-framework-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vmware.vcloud</groupId>
+            <artifactId>upgrade-framework-dsl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vmware.vcloud</groupId>
+            <artifactId>upgrade-framework-sql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vmware.vcloud</groupId>
+            <artifactId>upgrade-framework-sql-dsl</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>distro-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.parent.build.directory}</outputDirectory>
+                            <finalName>upgrade-framework</finalName>
+                            <descriptors>
+                                <descriptor>src/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>fix-pom-filenames</id>
+                        <phase>package</phase>
+                        <goals>
+                          <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-core/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-core/${project.version}/upgrade-framework-core-${project.version}.pom"/>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-distribution/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-distribution/${project.version}/upgrade-framework-distribution-${project.version}.pom"/>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-dsl/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-dsl/${project.version}/upgrade-framework-dsl-${project.version}.pom"/>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-sql/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-sql/${project.version}/upgrade-framework-sql-${project.version}.pom"/>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-sql-dsl/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-sql-dsl/${project.version}/upgrade-framework-sql-dsl-${project.version}.pom"/>
+
+                              <!-- This is here because it is difficult to get the pom.xml copied in parent projects -->
+                              <dependencyfilesets prefix="assembly."/>
+                              <copy todir="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-parent/${project.version}">
+                                <fileset refid="assembly.${project.groupId}:upgrade-framework-parent:pom"/>
+                              </copy>
+                              <move file="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-parent/${project.version}/pom.xml" tofile="../target/upgrade-framework-assembly/${groupIdDir}/upgrade-framework-parent/${project.version}/upgrade-framework-parent-${project.version}.pom"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
