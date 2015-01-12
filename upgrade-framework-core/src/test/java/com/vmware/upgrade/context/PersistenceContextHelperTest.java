@@ -46,6 +46,7 @@ public class PersistenceContextHelperTest {
     }
 
     private class TypeAPersistenceContext extends BasePersistenceContext {}
+    private class SubtypeOfTypeAPersistenceContext extends TypeAPersistenceContext {}
     private class TypeBPersistenceContext extends BasePersistenceContext {}
 
     private PersistenceContextReference<TypeAPersistenceContext> createTypeAReference() {
@@ -53,6 +54,9 @@ public class PersistenceContextHelperTest {
     }
     private PersistenceContextReference<TypeAPersistenceContext> createTypeAReference(final String qualifier) {
         return new PersistenceContextReference.ImmutablePersistenceContextReference<TypeAPersistenceContext>(TypeAPersistenceContext.class, new TypeAPersistenceContext(), qualifier);
+    }
+    private PersistenceContextReference<SubtypeOfTypeAPersistenceContext> createSubtypeOfAReference() {
+        return new PersistenceContextReference.ImmutablePersistenceContextReference<SubtypeOfTypeAPersistenceContext>(SubtypeOfTypeAPersistenceContext.class, new SubtypeOfTypeAPersistenceContext());
     }
     private PersistenceContextReference<TypeBPersistenceContext> createTypeBReference() {
         return new PersistenceContextReference.ImmutablePersistenceContextReference<TypeBPersistenceContext>(TypeBPersistenceContext.class, new TypeBPersistenceContext());
@@ -86,6 +90,26 @@ public class PersistenceContextHelperTest {
 
         Assert.assertEquals(helper.getPersistenceContext(TypeAPersistenceContext.class), a.getTarget());
         Assert.assertEquals(helper.getPersistenceContext(TypeBPersistenceContext.class), b.getTarget());
+    }
+
+    @Test(groups = TestGroups.UNIT)
+    public void retrieveBySuperTypeTest() {
+        final PersistenceContextReference<?> subA = createSubtypeOfAReference();
+
+        final PersistenceContextHelper helper = new PersistenceContextHelper(subA);
+
+        Assert.assertEquals(helper.getPersistenceContext(TypeAPersistenceContext.class), subA.getTarget());
+    }
+
+    @Test(groups = TestGroups.UNIT)
+    public void retrieveExactTypeTest() {
+        final PersistenceContextReference<?> a = createTypeAReference();
+        final PersistenceContextReference<?> subA = createSubtypeOfAReference();
+
+        final PersistenceContextHelper helper = new PersistenceContextHelper(a, subA);
+
+        Assert.assertEquals(helper.getPersistenceContext(TypeAPersistenceContext.class), a.getTarget());
+        Assert.assertEquals(helper.getPersistenceContext(SubtypeOfTypeAPersistenceContext.class), subA.getTarget());
     }
 
     @Test(groups = TestGroups.UNIT, expectedExceptions = { NoSuchElementException.class })

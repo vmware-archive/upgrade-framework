@@ -98,7 +98,7 @@ public class PersistenceContextHelper {
         final List<PersistenceContextReference<T>> candidates = new ArrayList<PersistenceContextReference<T>>();
 
         for (PersistenceContextReference<?> persistenceContextReference : persistenceContextReferences) {
-            if (persistenceContextReference.getType().equals(type)) {
+            if (type.isAssignableFrom(persistenceContextReference.getType())) {
                 @SuppressWarnings("unchecked") // We checked
                 final PersistenceContextReference<T> candidate = (PersistenceContextReference<T>) persistenceContextReference;
 
