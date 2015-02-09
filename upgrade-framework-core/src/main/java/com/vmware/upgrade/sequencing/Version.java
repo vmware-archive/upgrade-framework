@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -395,7 +395,7 @@ public class Version implements Comparable<Version> {
 
             int compareResult = 0;
             for (int i = 0; i < Math.max(component.size(), otherList.get().size()); i++) {
-                final int componentCompareResult = compare(component.get(i), otherList.get(i));
+                final int componentCompareResult = compare(get(i), otherList.get(i));
                 if (compareResult == 0) {
                     compareResult = componentCompareResult;
                 } else if (compareResult > 0 && componentCompareResult < 0 ||
