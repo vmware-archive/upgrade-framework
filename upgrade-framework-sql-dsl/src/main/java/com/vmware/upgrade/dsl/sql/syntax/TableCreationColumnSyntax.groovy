@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -74,13 +74,7 @@ class TableCreationColumnSyntax {
             Column col = new Column(column, columnType)
             columns.add(col)
             if (columnType in NullAware) {
-                return [allowing: { arg ->
-                    if (arg == null) {
-                        columnType.setAllowNulls(true)
-                    } else {
-                        throw new IllegalArgumentException("expected null following 'allowing' but found '${arg}'")
-                    }
-                }]
+                return [allowing: { columnType.makeNullable(it) }]
             }
         }]
     }

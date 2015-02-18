@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2014-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -31,16 +31,16 @@ package com.vmware.upgrade.dsl.sql.util;
  */
 public interface NullAware {
     /**
-     * Set the allowing or disallowing of null values.
+     * Set the allowing of null values.
      *
-     * @param allowNulls
+     * @param arg
      */
-    public void setAllowNulls(boolean allowNulls);
+    public void makeNullable(Object arg);
 
     /**
      * Get the allowing or disallowing of null values.
      *
      * @return true if nulls are allowed, false otherwise
      */
-    public boolean getAllowNulls();
+    public boolean isNullable();
 }

@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -49,13 +49,7 @@ class TableAlterationSyntax {
             def columnType = (type in DataType) ? type.sql() : type
             model.addColumn(column, columnType)
             if (columnType in NullAware) {
-                return [allowing: { arg ->
-                    if (arg == null) {
-                        columnType.setAllowNulls(true)
-                    } else {
-                        throw new IllegalArgumentException("expected null following 'allowing' but found '${arg}'")
-                    }
-                }]
+                return [allowing: { columnType.makeNullable(it) }]
             }
         }]
     }
@@ -73,8 +67,12 @@ class TableAlterationSyntax {
     }
 
     def retype(column) {
-        return [to: { newType ->
+        return [to: { type ->
+            def newType = (type in DataType) ? type.sql() : type
             model.retypeColumn(column, newType)
+            if (newType in NullAware) {
+                return [allowing: { newType.makeNullable(it) }]
+            }
         }]
     }
 

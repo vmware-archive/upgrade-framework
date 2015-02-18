@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -171,6 +171,81 @@ public class AlterSemanticsTest {
                                             "END;\n"
                                     );
                                     put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a VARCHAR(128) NOT NULL;");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' retype 'a' to VARCHAR(128) allowing null",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ALTER COLUMN a VARCHAR(128) NULL");
+                                    put(
+                                            "oracle",
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  )';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n"
+                                    );
+                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a VARCHAR(128) NULL;");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' retype 'a' to INTEGER",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ALTER COLUMN a INT NOT NULL");
+                                    put(
+                                            "oracle",
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0)  )';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0)  NOT NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n"
+                                    );
+                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a INT NOT NULL;");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' retype 'a' to INTEGER allowing null",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ALTER COLUMN a INT NULL");
+                                    put(
+                                            "oracle",
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0)  NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0)  )';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n"
+                                    );
+                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a INT NULL;");
                                 }}
                         )
                 },

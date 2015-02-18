@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,8 +24,6 @@ package com.vmware.upgrade.dsl.sql.model.defaults
 
 import com.vmware.upgrade.dsl.sql.model.ConstraintModel
 import com.vmware.upgrade.dsl.sql.model.TableAlterationModel
-import com.vmware.upgrade.dsl.sql.syntax.ColumnType
-import com.vmware.upgrade.dsl.sql.syntax.DataType
 import com.vmware.upgrade.dsl.sql.util.NullAware
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
@@ -191,19 +189,19 @@ END;
                  *  that it is already the case. This logic handles the appropriate placement of
                  *  "not null".
                  */
-                if (databaseType.toString().toUpperCase().equals("ORACLE")) {
+                if (databaseType.toString().equalsIgnoreCase("ORACLE")) {
                     String simpleColumnType, existingColumnIsNullable, existingColumnIsNotNullable
                     String evaluatedColumnType = SQLStatementFactory.create(columnType).get(databaseType)
 
-                    boolean nullable = (columnType in NullAware) ? columnType.getAllowNulls() : !evaluatedColumnType.contains("NOT NULL")
+                    boolean nullable = (columnType in NullAware) ? columnType.isNullable() : !evaluatedColumnType.contains("NOT NULL")
                     if (nullable) {
                         simpleColumnType = evaluatedColumnType.replace("NULL", "")
-                        existingColumnIsNullable = "NULL"
-                        existingColumnIsNotNullable = ""
+                        existingColumnIsNotNullable = "NULL"
+                        existingColumnIsNullable = ""
                     } else {
                         simpleColumnType = evaluatedColumnType.replace("NOT NULL", "")
-                        existingColumnIsNullable = ""
-                        existingColumnIsNotNullable = "NOT NULL"
+                        existingColumnIsNotNullable = ""
+                        existingColumnIsNullable = "NOT NULL"
                     }
 
                     return SQLStatementFactory.format(
@@ -212,8 +210,8 @@ END;
                         tableName,
                         columnName,
                         simpleColumnType,
-                        existingColumnIsNullable,
-                        existingColumnIsNotNullable
+                        existingColumnIsNotNullable,
+                        existingColumnIsNullable
                     )
                 } else {
                     return SQLStatementFactory.format(

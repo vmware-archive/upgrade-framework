@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2014-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -106,13 +106,23 @@ public class ColumnType {
             sqlStatement = SQLStatementFactory.create(statementMap)
         }
 
+        /**
+         * Checks if {@code arg} is {@code null}, if so will permit null values
+         * for this column, otherwise will throw an {@link IllegalArgumentException}
+         *
+         * @param arg
+         */
         @Override
-        public void setAllowNulls(boolean allowNulls) {
-            this.allowNulls = allowNulls
+        public void makeNullable(def arg) {
+            if (arg == null) {
+                this.allowNulls = true
+            } else {
+                throw new IllegalArgumentException("expected null following 'allowing' but found '${arg}'")
+            }
         }
 
         @Override
-        public boolean getAllowNulls() {
+        public boolean isNullable() {
             return allowNulls
         }
 
