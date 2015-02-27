@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -58,6 +58,25 @@ public class CreateSemanticsTest {
                                     put("ms_sql", "CREATE TABLE t1 ( a TINYINT DEFAULT 0 NULL )");
                                     put("oracle", "CREATE TABLE t1 ( a NUMBER(1,0) DEFAULT 0 NULL )");
                                     put("postgres", "CREATE TABLE t1 ( a BOOLEAN DEFAULT FALSE NULL )");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "create 't1' columns { " +
+                        "  add 'a' storing BOOL allowing null\n" +
+                        "  add 'b' storing BOOL " +
+                        "}",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "CREATE TABLE t1 ( " +
+                                            "a TINYINT DEFAULT 0 NULL, " +
+                                            "b TINYINT DEFAULT 0 NOT NULL )");
+                                    put("oracle", "CREATE TABLE t1 ( " +
+                                            "a NUMBER(1,0) DEFAULT 0 NULL, " +
+                                            "b NUMBER(1,0) DEFAULT 0 NOT NULL )");
+                                    put("postgres", "CREATE TABLE t1 ( " +
+                                            "a BOOLEAN DEFAULT FALSE NULL, " +
+                                            "b BOOLEAN DEFAULT FALSE NOT NULL )");
                                 }}
                         )
                 },
@@ -127,7 +146,7 @@ public class CreateSemanticsTest {
     }
 
     @Test(groups = { TestGroups.UNIT }, dataProvider = "createStatements")
-    public void compareCeateStatements(String ddl, SQLStatement expected) {
+    public void compareCreateStatements(String ddl, SQLStatement expected) {
         final UpgradeDefinitionModel upgrade = SemanticTestUtil.createUpgradeModel(ddl);
 
         SemanticTestUtil.compareModelToSQL(upgrade, expected);
