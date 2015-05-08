@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -249,7 +249,8 @@ public class SafeSemanticsTest {
                                             "postgres",
                                             String.format(
                                                     TABLE_COLUMN_WRAPPER.get(TestDatabaseTypes.POSTGRES),
-                                                    "ALTER TABLE table1 DROP COLUMN name; ALTER TABLE table1 ADD COLUMN name VARCHAR(256) NOT NULL;"
+                                                    "ALTER TABLE table1 ALTER COLUMN name TYPE VARCHAR(256);" +
+                                                    "ALTER TABLE table1 ALTER COLUMN name SET NOT NULL"
                                             )
                                     );
                                 }}

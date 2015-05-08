@@ -102,8 +102,8 @@ BEGIN
   END IF;
 END;
 """,
-/*Limit the retype to a column without any reference and data for vPostgres now.*/
-                    postgres: "ALTER TABLE %1\$s DROP COLUMN %2\$s; ALTER TABLE %1\$s ADD COLUMN %2\$s %3\$s;"
+                    postgres: "ALTER TABLE %1\$s ALTER COLUMN %2\$s TYPE %3\$s;" +
+                              "ALTER TABLE %1\$s ALTER COLUMN %2\$s %4\$s NOT NULL"
                 ]
             )
         ),
@@ -183,6 +183,10 @@ END;
             case AlterationType.RENAME_COLUMN:
                 return SQLStatementFactory.format(alterationType.getSql(databaseType), databaseType, tableName, columnName, newColumnName)
             case AlterationType.RETYPE_COLUMN:
+                String simpleColumnType
+                String evaluatedColumnType = SQLStatementFactory.create(columnType).get(databaseType)
+                boolean nullable = (columnType in NullAware) ? columnType.isNullable() : !evaluatedColumnType.contains("NOT NULL")
+
                 /*
                  *  In oracle, if the column having its type changed is already marked as "not null",
                  *  then it will complain if the ALTER TABLE MODIFY also contains "not null" saying
@@ -190,10 +194,8 @@ END;
                  *  "not null".
                  */
                 if (databaseType.toString().equalsIgnoreCase("ORACLE")) {
-                    String simpleColumnType, existingColumnIsNullable, existingColumnIsNotNullable
-                    String evaluatedColumnType = SQLStatementFactory.create(columnType).get(databaseType)
+                    String existingColumnIsNullable, existingColumnIsNotNullable
 
-                    boolean nullable = (columnType in NullAware) ? columnType.isNullable() : !evaluatedColumnType.contains("NOT NULL")
                     if (nullable) {
                         simpleColumnType = evaluatedColumnType.replace("NULL", "")
                         existingColumnIsNotNullable = "NULL"
@@ -213,6 +215,21 @@ END;
                         existingColumnIsNotNullable,
                         existingColumnIsNullable
                     )
+                /*
+                 * In Postgres the nullability isn't included in the type for the alter statement.
+                 * Dropping/setting NOT NULL is used in a subsequent ALTER statement instead.
+                 */
+                } else if (databaseType.toString().equalsIgnoreCase("POSTGRES")) {
+                    simpleColumnType = evaluatedColumnType.replaceAll("(?i)\\s?(NOT\\s)?NULL", "")
+                    String nullability = (nullable) ? "DROP" : "SET"
+
+                    return SQLStatementFactory.format(
+                        alterationType.getSql(databaseType),
+                        databaseType,
+                        tableName,
+                        columnName,
+                        simpleColumnType,
+                        nullability)
                 } else {
                     return SQLStatementFactory.format(
                         alterationType.getSql(databaseType),

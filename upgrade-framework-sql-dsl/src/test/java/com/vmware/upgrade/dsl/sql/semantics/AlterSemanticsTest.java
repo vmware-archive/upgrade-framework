@@ -170,7 +170,11 @@ public class AlterSemanticsTest {
                                             "  END IF;\n" +
                                             "END;\n"
                                     );
-                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a VARCHAR(128) NOT NULL;");
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE VARCHAR(128);" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL"
+                                    );
                                 }}
                         )
                 },
@@ -195,7 +199,11 @@ public class AlterSemanticsTest {
                                             "  END IF;\n" +
                                             "END;\n"
                                     );
-                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a VARCHAR(128) NULL;");
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE VARCHAR(128);" +
+                                            "ALTER TABLE t ALTER COLUMN a DROP NOT NULL"
+                                    );
                                 }}
                         )
                 },
@@ -220,7 +228,11 @@ public class AlterSemanticsTest {
                                             "  END IF;\n" +
                                             "END;\n"
                                     );
-                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a INT NOT NULL;");
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE INT;" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL"
+                                    );
                                 }}
                         )
                 },
@@ -245,7 +257,11 @@ public class AlterSemanticsTest {
                                             "  END IF;\n" +
                                             "END;\n"
                                     );
-                                    put("postgres", "ALTER TABLE t DROP COLUMN a; ALTER TABLE t ADD COLUMN a INT NULL;");
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE INT;" +
+                                            "ALTER TABLE t ALTER COLUMN a DROP NOT NULL"
+                                    );
                                 }}
                         )
                 },
