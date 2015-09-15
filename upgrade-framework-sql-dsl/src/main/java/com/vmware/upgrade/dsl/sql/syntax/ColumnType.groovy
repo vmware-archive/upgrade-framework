@@ -44,7 +44,8 @@ import com.vmware.upgrade.sql.SQLStatement
  * @since 1.0
  */
 public class ColumnType {
-    @Override
+
+    /* @Override from MetaObjectProtocol */
     public MetaProperty hasProperty(String name) {
         return ClassUtil.hasField(Type.class, name)
     }

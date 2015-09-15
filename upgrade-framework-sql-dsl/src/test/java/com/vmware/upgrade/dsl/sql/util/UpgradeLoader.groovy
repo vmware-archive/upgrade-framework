@@ -34,12 +34,10 @@ import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel
  * @since 1.0
  */
 class UpgradeLoader {
-    @Override
     static UpgradeDefinitionModel loadInline(String script, TaskResolver taskResolver = new SqlTaskResolver(), Processor processor = new AgnosticSqlProcessor()) {
         return com.vmware.upgrade.dsl.util.UpgradeLoader.loadInline(script, taskResolver, processor)
     }
 
-    @Override
     static UpgradeDefinitionModel loadDefinitionInline(String script, TaskResolver taskResolver = new SqlTaskResolver(), Processor processor = new AgnosticSqlProcessor()) {
         return com.vmware.upgrade.dsl.util.UpgradeLoader.loadDefinitionInline(script, taskResolver, processor)
     }
