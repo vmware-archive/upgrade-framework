@@ -86,11 +86,6 @@ class ReferenceSyntax {
         this
     }
 
-    def on_update(action) {
-        model.setUpdateConstraint(action)
-        this
-    }
-
     def propertyMissing(String name) {
         String msg
         if (this.getClass().methods.name.contains(name)) {

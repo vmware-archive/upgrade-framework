@@ -69,15 +69,9 @@ public class ReferenceSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "reference 'c' and 'd' of 't' from 'c2' and 'd2' of 't2' on_update set_null",
+                        "reference 'c' and 'd' of 't' from 'c2' and 'd2' of 't2' on_delete no_action",
                         SQLStatementFactory.create(
-                                "ALTER TABLE t2 ADD CONSTRAINT fk_t22t FOREIGN KEY ( c2, d2 ) REFERENCES t ( c, d ) ON UPDATE SET NULL"
-                        )
-                },
-                new Object[] {
-                        "reference 'c' and 'd' of 't' from 'c2' and 'd2' of 't2' on_delete no_action on_update set_default",
-                        SQLStatementFactory.create(
-                                "ALTER TABLE t2 ADD CONSTRAINT fk_t22t FOREIGN KEY ( c2, d2 ) REFERENCES t ( c, d ) ON DELETE NO ACTION ON UPDATE SET DEFAULT"
+                                "ALTER TABLE t2 ADD CONSTRAINT fk_t22t FOREIGN KEY ( c2, d2 ) REFERENCES t ( c, d ) ON DELETE NO ACTION"
                         )
                 },
                 new Object[] {
@@ -93,11 +87,6 @@ public class ReferenceSemanticsTest {
     @DataProvider(name = "invalid-reference-statements")
     public Object[][] invalidReferenceStatements() {
         return new Object[][] {
-                new Object[] {
-                        "reference 'c' and 'd' of 't' from 'c2' and 'd2' of 't2' on_update a",
-                        UnknownKeywordException.class,
-                        "Unknown keyword 'a'"
-                },
                 new Object[] {
                         "reference 'c' and 'd' of 't' from 'c2' and 'd2' of 't2' on_delete",
                         UnknownKeywordException.class,
