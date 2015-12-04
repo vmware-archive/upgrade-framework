@@ -22,7 +22,7 @@
 
 package com.vmware.upgrade.dsl.sql.syntax
 
-import com.vmware.upgrade.dsl.sql.util.NullAware
+import com.vmware.upgrade.dsl.sql.util.ColumnTypeSyntaxUtil
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 import com.vmware.upgrade.sql.DatabaseType
@@ -70,12 +70,11 @@ class TableCreationColumnSyntax {
         ValidationUtil.validateEntityName(column)
 
         return [storing: { type ->
-            def columnType = (type in DataType) ? type.sql() : type
+            def columnType = ColumnTypeSyntaxUtil.getColumnType(type)
             Column col = new Column(column, columnType)
             columns.add(col)
-            if (columnType in NullAware) {
-                return [allowing: { columnType.makeNullable(it) }]
-            }
+
+            return ColumnTypeSyntaxUtil.getAllowingNullSyntax(columnType)
         }]
     }
 }

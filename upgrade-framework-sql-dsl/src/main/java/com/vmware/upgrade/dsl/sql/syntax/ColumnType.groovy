@@ -100,11 +100,19 @@ public class ColumnType {
     public static class NullableMapBasedSQLStatement implements NullAware, SQLStatement {
         private boolean allowNulls = false
         private final SQLStatement sqlStatement
+        private final Map<String, String> statementMap
+
         private static final String NOT_NULL = "NOT NULL"
         private static final String NULL = "NULL"
 
         public NullableMapBasedSQLStatement(Map<String, String> statementMap) {
+            this(statementMap, false)
+        }
+
+        public NullableMapBasedSQLStatement(Map<String, String> statementMap, boolean allowNulls) {
             sqlStatement = SQLStatementFactory.create(statementMap)
+            this.statementMap = statementMap
+            this.allowNulls = allowNulls
         }
 
         /**
@@ -132,6 +140,11 @@ public class ColumnType {
             String sql = sqlStatement.get(databaseType)
             String nullConstraint = (allowNulls) ? NULL : NOT_NULL
             return String.format("${sql} %s", nullConstraint)
+        }
+
+        @Override
+        public NullAware makeCopy() {
+            return new NullableMapBasedSQLStatement(statementMap, allowNulls)
         }
     }
 }

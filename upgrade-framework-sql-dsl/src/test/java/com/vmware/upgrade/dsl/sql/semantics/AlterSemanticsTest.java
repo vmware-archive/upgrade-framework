@@ -150,6 +150,16 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
+                        "alter 't' rename 'a' to 'b'\nalter 't' rename 'c' to 'd'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "EXEC sp_rename 't.[a]', 'b', 'COLUMN';EXEC sp_rename 't.[c]', 'd', 'COLUMN'");
+                                    put("oracle", "ALTER TABLE t RENAME COLUMN a TO b;ALTER TABLE t RENAME COLUMN c TO d");
+                                    put("postgres", "ALTER TABLE t RENAME COLUMN a TO b;ALTER TABLE t RENAME COLUMN c TO d");
+                                }}
+                        )
+                },
+                new Object[] {
                         "alter 't' retype 'a' to VARCHAR(128)",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
@@ -261,6 +271,53 @@ public class AlterSemanticsTest {
                                             "postgres",
                                             "ALTER TABLE t ALTER COLUMN a TYPE INT;" +
                                             "ALTER TABLE t ALTER COLUMN a DROP NOT NULL"
+                                    );
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' retype 'a' to TEST_VARCHAR allowing null\n" +
+                        "alter 't' retype 'a' to TEST_VARCHAR",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql",
+                                            "ALTER TABLE t ALTER COLUMN a VARCHAR(128) NULL;ALTER TABLE t ALTER COLUMN a VARCHAR(128) NOT NULL");
+                                    put(
+                                            "oracle",
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  )';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n" +
+                                            ";" +
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  )';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a VARCHAR2(128)  NOT NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n"
+                                    );
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE VARCHAR(128);" +
+                                            "ALTER TABLE t ALTER COLUMN a DROP NOT NULL;" +
+                                            "ALTER TABLE t ALTER COLUMN a TYPE VARCHAR(128);" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL"
                                     );
                                 }}
                         )

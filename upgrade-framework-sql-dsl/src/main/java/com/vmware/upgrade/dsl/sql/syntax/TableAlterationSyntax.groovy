@@ -24,7 +24,7 @@ package com.vmware.upgrade.dsl.sql.syntax
 
 import com.vmware.upgrade.dsl.sql.model.ConstraintModel
 import com.vmware.upgrade.dsl.sql.model.TableAlterationModel
-import com.vmware.upgrade.dsl.sql.util.NullAware
+import com.vmware.upgrade.dsl.sql.util.ColumnTypeSyntaxUtil
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 
 /**
@@ -46,11 +46,10 @@ class TableAlterationSyntax {
         ValidationUtil.validateEntityName(column)
 
         return [storing: { type ->
-            def columnType = (type in DataType) ? type.sql() : type
+            def columnType = ColumnTypeSyntaxUtil.getColumnType(type)
             model.addColumn(column, columnType)
-            if (columnType in NullAware) {
-                return [allowing: { columnType.makeNullable(it) }]
-            }
+
+            return ColumnTypeSyntaxUtil.getAllowingNullSyntax(columnType)
         }]
     }
 
@@ -68,11 +67,10 @@ class TableAlterationSyntax {
 
     def retype(column) {
         return [to: { type ->
-            def newType = (type in DataType) ? type.sql() : type
+            def newType = ColumnTypeSyntaxUtil.getColumnType(type)
             model.retypeColumn(column, newType)
-            if (newType in NullAware) {
-                return [allowing: { newType.makeNullable(it) }]
-            }
+
+            return ColumnTypeSyntaxUtil.getAllowingNullSyntax(newType)
         }]
     }
 

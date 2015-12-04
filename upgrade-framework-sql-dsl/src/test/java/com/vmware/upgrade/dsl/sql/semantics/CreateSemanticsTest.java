@@ -81,6 +81,44 @@ public class CreateSemanticsTest {
                         )
                 },
                 new Object[] {
+                        "create 't1' columns { " +
+                        "  add 'a' storing NVARCHAR(16) allowing null\n" +
+                        "  add 'b' storing NVARCHAR(16) " +
+                        "}",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "CREATE TABLE t1 ( " +
+                                            "a NVARCHAR(16) NULL, " +
+                                            "b NVARCHAR(16) NOT NULL )");
+                                    put("oracle", "CREATE TABLE t1 ( " +
+                                            "a NVARCHAR2(16) NULL, " +
+                                            "b NVARCHAR2(16) NOT NULL )");
+                                    put("postgres", "CREATE TABLE t1 ( " +
+                                            "a VARCHAR(16) NULL, " +
+                                            "b VARCHAR(16) NOT NULL )");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "create 't1' columns { " +
+                        "  add 'a' storing TEST_VARCHAR allowing null\n" +
+                        "  add 'b' storing TEST_VARCHAR " +
+                        "}",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "CREATE TABLE t1 ( " +
+                                            "a VARCHAR(128) NULL, " +
+                                            "b VARCHAR(128) NOT NULL )");
+                                    put("oracle", "CREATE TABLE t1 ( " +
+                                            "a VARCHAR2(128) NULL, " +
+                                            "b VARCHAR2(128) NOT NULL )");
+                                    put("postgres", "CREATE TABLE t1 ( " +
+                                            "a VARCHAR(128) NULL, " +
+                                            "b VARCHAR(128) NOT NULL )");
+                                }}
+                        )
+                },
+                new Object[] {
                         "create 't1' columns { add 'a' storing NVARCHAR(16) }",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{

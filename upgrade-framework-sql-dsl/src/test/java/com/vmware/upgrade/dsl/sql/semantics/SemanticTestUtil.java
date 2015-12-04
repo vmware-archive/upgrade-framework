@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,17 +24,21 @@ package com.vmware.upgrade.dsl.sql.semantics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.testng.Assert;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.vmware.upgrade.dsl.Processor;
 import com.vmware.upgrade.dsl.TaskResolver;
 import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel;
 import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel.TaskDescriptor;
+import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory;
 import com.vmware.upgrade.dsl.sql.util.UpgradeLoader;
 import com.vmware.upgrade.sql.DatabaseType;
 import com.vmware.upgrade.sql.SQLStatement;
+
+import org.testng.Assert;
 
 /**
  * A utility for upgrade DDL semantic tests to use.
@@ -97,7 +101,7 @@ public class SemanticTestUtil {
     public static void compareModelToSQL(UpgradeDefinitionModel upgrade, SQLStatement expected) {
         for (DatabaseType databaseType : TestDatabaseTypes.values()) {
             try {
-                final SQLStatement sql = findSQLStatement(upgrade.getTasks());
+                final SQLStatement sql = findSQLStatements(upgrade.getTasks());
 
                 Assert.assertEquals(sql.get(databaseType), expected.get(databaseType));
             } catch (IllegalArgumentException e) {
@@ -108,23 +112,51 @@ public class SemanticTestUtil {
         }
     }
 
-    private static SQLStatement findSQLStatement(List<TaskDescriptor> tasks) {
-        final Object o = ((List<?>) tasks.get(0).getArgs()).get(0);
+    private static SQLStatement findSQLStatement(List<TaskDescriptor> tasks, Map<DatabaseType, String> statements) {
+        final List<TaskDescriptor> typedList = new ArrayList<>();
 
-        if (o instanceof SQLStatement) {
-            return (SQLStatement) o;
-        } else if (o instanceof List) {
-            final List<?> list = (List<?>) o;
-            final List<TaskDescriptor> typedList = new ArrayList<TaskDescriptor>(list.size());
-            for (Object item : list) {
-                if (item instanceof TaskDescriptor) {
-                    typedList.add((TaskDescriptor) item);
+        for (TaskDescriptor task : tasks) {
+            final Object o = (task.getArgs()).get(0);
+
+            if (o instanceof SQLStatement) {
+                final SQLStatement sql = (SQLStatement) o;
+                for (DatabaseType dbType : statements.keySet()) {
+                    final String oldSql = statements.get(dbType);
+                    final String newSql =
+                            (oldSql.isEmpty()) ? sql.get(dbType) : oldSql + ";" + sql.get(dbType);
+
+                    statements.put(dbType, newSql);
                 }
-            }
+            } else if (o instanceof List) {
+                final List<?> list = (List<?>) o;
+                for (Object item : list) {
+                    if (item instanceof TaskDescriptor) {
+                        typedList.add((TaskDescriptor) item);
+                    }
+                }
 
-            return findSQLStatement(typedList);
-        } else {
-            throw new IllegalArgumentException("Can not find an SQLStatement in the upgrade model's task list");
+            }
         }
+
+        if (!typedList.isEmpty()) {
+            return findSQLStatement(typedList, statements);
+        }
+
+        // SQLStatementFactory#create expects database types as Strings
+        final Map<String, String> map = new HashMap<>();
+        for (Entry<DatabaseType, String> entry : statements.entrySet()) {
+            map.put(entry.getKey().toString(), entry.getValue());
+        }
+
+        return SQLStatementFactory.create(map);
+    }
+
+    private static SQLStatement findSQLStatements(List<TaskDescriptor> tasks) {
+        final Map<DatabaseType, String> map = new HashMap<>();
+        for (DatabaseType databaseType : TestDatabaseTypes.values()) {
+            map.put(databaseType, "");
+        }
+
+        return findSQLStatement(tasks, map);
     }
 }

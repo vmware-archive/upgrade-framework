@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2015 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,34 +20,54 @@
  * DEALINGS IN THE SOFTWARE.
  * ****************************************************************************/
 
-package com.vmware.upgrade.dsl.sql.util;
+package com.vmware.upgrade.dsl.sql.util
+
+import com.vmware.upgrade.dsl.sql.syntax.DataType
 
 /**
- * Interface to control whether or not to allow nulls.
+ * Utility class for syntax-related classes to perform common operations on a {@link ColumnType}
  *
  * @author Matthew Frost <mfrost@vmware.com>
  * @version 1.0
  * @since 1.0
  */
-public interface NullAware {
-    /**
-     * Set the allowing of null values.
-     *
-     * @param arg
-     */
-    public void makeNullable(Object arg);
+class ColumnTypeSyntaxUtil {
 
     /**
-     * Get the allowing or disallowing of null values.
+     * Checks which interfaces are implemented by {@code type} and calls requisite methods as
+     * applicable.
      *
-     * @return true if nulls are allowed, false otherwise
+     * @param type any valid column type object, e.g. {@link Map}, {@link String}, {@link ColumnType}
+     * @return an object representing a column type, this may be a reference to the same object or a
+     * copy of one (i.e. callers should <i>not</i> assume the returned object references the same one
+     * passed).
      */
-    public boolean isNullable();
+    static def getColumnType(type) {
+        def columnType = type
+
+        if (type in DataType) {
+            columnType = columnType.sql()
+        }
+
+        if (type in NullAware) {
+            columnType = columnType.makeCopy()
+        }
+
+        return columnType
+    }
 
     /**
-     * Make a copy of this object
+     * Returns a closure using the {@code allowing} syntax to make {@code type} nullable.
      *
-     * @return
+     * @param type
+     * @return {@link Closure}, or the passed {@code type} if it is not {@link NullAware}
      */
-    public NullAware makeCopy();
+    static def getAllowingNullSyntax(type) {
+        if (type in NullAware) {
+            return [allowing: { type.makeNullable(it) }]
+        }
+
+        return type
+    }
+
 }
