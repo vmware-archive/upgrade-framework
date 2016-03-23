@@ -16,7 +16,7 @@
 # Directories created during the build process
 target/
 test-output/
-build/beta/
+build/
 
 # Auto-generated OSGI manifests
 META-INF/
