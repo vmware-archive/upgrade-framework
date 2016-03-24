@@ -47,7 +47,7 @@ public class AggregateProcessor implements Processor {
      * Creates an {@link AggregateProcessor} based on the state of the delegates <strong>at
      * construction time</strong>
      *
-     * @param processors
+     * @param processors one or more {@link Processor}(s)
      */
     public AggregateProcessor(Processor ... processors) {
         final Map<String, Closure<?>> keywordProcessors = new HashMap<String, Closure<?>>();

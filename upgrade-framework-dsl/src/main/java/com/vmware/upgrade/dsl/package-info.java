@@ -52,7 +52,7 @@
  * <h4>Usage</h4>
  * <pre><code>
  * static Graph load(String path) {
- *     def resourceMapper = { String name ->
+ *     def resourceMapper = { String name -&gt;
  *         URL u = getClass().getResource("/upgrade/${name}")
  *         if (u == null) {
  *             throw new MissingFileException(name)

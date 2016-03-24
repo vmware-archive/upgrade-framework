@@ -40,7 +40,7 @@ import java.util.Set;
  *                       /
  *                      /
  *                     /
- * PENDING ---> RUNNING ---> COMPLETED
+ * PENDING ---&gt; RUNNING ---&gt; COMPLETED
  *                 A   \
  *                 |    \
  *                 |     \
@@ -48,7 +48,7 @@ import java.util.Set;
  *                 |       \
  *                 |        \
  *                 V         \
- *             SUSPENDED ---> CANCELLED
+ *             SUSPENDED ---&gt; CANCELLED
  * </pre>
  *
  * @author Zach Shepherd shepherdz@vmware.com

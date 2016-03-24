@@ -35,7 +35,7 @@ public interface SQLStatement {
     /**
      * Get the appropriate SQL string for a given {@link DatabaseType}.
      *
-     * @param databaseType
+     * @param databaseType {@link DatabaseType}
      * @return an SQL string
      * @throws IllegalArgumentException if a statement cannot be retrieved for
      *         the given {@code databaseType}

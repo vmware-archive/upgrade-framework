@@ -41,6 +41,8 @@ public final class SerialAggregateTask extends AbstractAggregateTask {
     /**
      * Constructs a named task which aggregates the supplied tasks.
      *
+     * @param context
+     *          the {@link UpgradeContext}
      * @param name
      *          see {@link Task#getName()}
      * @param children

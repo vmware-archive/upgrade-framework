@@ -55,6 +55,7 @@ public class PersistenceContextHelper {
      *
      * @see UpgradeContext#getPersistenceContext(Class)
      *
+     * @param <T> extends {@link PersistenceContext}
      * @param type the {@link Class} of {@link PersistenceContext} to return.
      * @return a {@link PersistenceContext} of the specified {@link Class}.
      * @throws NoSuchElementException if no {@link PersistenceContext} of the specified
@@ -76,6 +77,7 @@ public class PersistenceContextHelper {
      *
      * @see UpgradeContext#getPersistenceContext(Class, String)
      *
+     * @param <T> extends {@link PersistenceContext}
      * @param type the {@link Class} of {@link PersistenceContext} to return.
      * @param qualifier a {@link String} identifying the {@link PersistenceContext} to return.
      * @return a {@linkplain PersistenceContext} of the specified {@linkplain Class}.

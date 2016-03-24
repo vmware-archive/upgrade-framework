@@ -49,6 +49,8 @@ public final class ParallelAggregateTask extends AbstractAggregateTask {
      *
      * Tasks will be executed using the supplied {@link ExecutorService}.
      *
+     * @param context
+     *          the {@link UpgradeContext}
      * @param name
      *          see {@link Task#getName()}
      * @param executor

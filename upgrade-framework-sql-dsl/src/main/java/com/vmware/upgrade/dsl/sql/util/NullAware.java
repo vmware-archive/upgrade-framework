@@ -33,7 +33,7 @@ public interface NullAware {
     /**
      * Set the allowing of null values.
      *
-     * @param arg
+     * @param arg the {@link Object} used to determine allowing of null values
      */
     public void makeNullable(Object arg);
 
@@ -47,7 +47,7 @@ public interface NullAware {
     /**
      * Make a copy of this object
      *
-     * @return
+     * @return a copy of this {@link NullAware}
      */
     public NullAware makeCopy();
 }

@@ -75,6 +75,7 @@ public interface UpgradeContext {
      *
      * @see PersistenceContextHelper
      *
+     * @param <T> extends {@link PersistenceContext}
      * @param type the desired {@link Class}
      * @return an instance of the specified context {@link Class}, if one exists.
      * @throws NoSuchElementException if no instance is found
@@ -88,6 +89,7 @@ public interface UpgradeContext {
      *
      * @see PersistenceContextHelper
      *
+     * @param <T> extends {@link PersistenceContext}
      * @param type the desired {@link Class}
      * @param qualifier the desired {@code qualifier} {@link String}
      * @return an instance of the specified context {@link Class} with the specified

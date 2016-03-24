@@ -155,7 +155,7 @@ public class UpgradeLoggerHelper {
      * When convenient, this class may re-use a {@linkplain UpgradeLogger} instance created by a
      * previous call to this method for the same {@linkplain org.apache.log4j.Logger}.
      *
-     * @param delegateLogger
+     * @param delegateLogger the {@linkplain org.apache.log4j.Logger Logger} to wrap
      * @return the wrapped {@linkplain org.apache.log4j.Logger Logger}
      */
     public static UpgradeLogger asUpgradeLogger(org.apache.log4j.Logger delegateLogger) {

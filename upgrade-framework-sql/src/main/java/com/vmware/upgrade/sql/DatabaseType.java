@@ -40,7 +40,7 @@ public interface DatabaseType {
      * @param scriptName
      *            Name of the script file
      * @return the {@link String} object containing the script
-     * @throws IOException
+     * @throws IOException if an I/O exception has occurred
      */
     String load(String scriptName) throws IOException;
 }

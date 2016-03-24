@@ -139,7 +139,7 @@ public class SimpleAggregatingProgressReporter extends AbstractProgressReporter 
      * <p>
      * The client must call the {@link #setChildren} method to set the child tasks.
      *
-     * @param stateAggregator
+     * @param stateAggregator the {@link ExecutionStateAggregator} the reporter will use
      */
     public SimpleAggregatingProgressReporter(final ExecutionStateAggregator stateAggregator) {
         super();

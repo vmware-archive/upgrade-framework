@@ -59,6 +59,8 @@ public interface DatabasePersistenceContext extends PersistenceContext {
      *
      * @param script
      *            the script to parse
+     * @param <T>
+     *            type of {@link SQLParsedDataAggregator}
      * @param aggregator
      *            the aggregator to add results to
      * @return the results of calling {@code getParsedData} on the supplied aggregator

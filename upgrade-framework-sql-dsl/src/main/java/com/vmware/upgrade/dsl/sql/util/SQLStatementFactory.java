@@ -222,7 +222,7 @@ public class SQLStatementFactory  {
      *
      * @param format A format compatible with
      *               {@link String#format(String, Object...) String.format}
-     * @param databaseType
+     * @param databaseType {@link DatabaseType}
      * @param objects Objects compatible with
      *                {@link SQLStatementFactory#create(Object...)}
      * @return The formatted String
@@ -243,6 +243,7 @@ public class SQLStatementFactory  {
      *
      * @param statement The {@link SQLStatement} to inspect.
      * @param databaseTypes The {@link Set} of known types.
+     * @param defaultValue the value to return if a determination cannot be made
      * @return {@code true} if and only if the supplied {@link SQLStatement} contains records
      *          for one or more {@link DatabaseType}s that are not known.
      */
