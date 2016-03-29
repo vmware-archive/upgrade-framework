@@ -28,7 +28,7 @@ import com.vmware.upgrade.sql.SQLStatement
 /**
  * Provides wrapping a raw SQL string with SQL entity existence checks.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

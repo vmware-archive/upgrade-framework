@@ -39,7 +39,7 @@ import org.apache.commons.lang.StringUtils;
  * Task that encapsulates a raw statement {@link String} or {@link SQLStatement} to be executed at
  * runtime against an {@link UpgradeContext} containing a {@link DatabasePersistenceContext}.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

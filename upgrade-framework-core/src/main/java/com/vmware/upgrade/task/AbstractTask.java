@@ -30,7 +30,7 @@ import com.vmware.upgrade.progress.ProgressReporter;
 /**
  * An {@link AbstractTask} encapsulates the core functionality of any {@link Task}
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

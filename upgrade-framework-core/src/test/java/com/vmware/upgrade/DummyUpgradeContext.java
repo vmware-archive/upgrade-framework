@@ -33,7 +33,7 @@ import com.vmware.upgrade.sequencing.Version;
  *
  * Suitable for use only when a non-{@code null} placeholder {@link UpgradeContext} is needed.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

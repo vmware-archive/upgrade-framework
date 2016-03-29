@@ -31,7 +31,7 @@ import com.vmware.upgrade.logging.UpgradeLogger;
 /**
  * A {@link Task} which aggregates other {@link Task}s and executes them in series
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

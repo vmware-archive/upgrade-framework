@@ -34,7 +34,7 @@ import org.apache.log4j.Priority;
  *
  * @see Level
  *
- * @author Stephen Evanchik <evanchik@vmware.com>
+ * @author Stephen Evanchik evanchik@vmware.com
  * @version 1.0
  * @since 1.0
  */

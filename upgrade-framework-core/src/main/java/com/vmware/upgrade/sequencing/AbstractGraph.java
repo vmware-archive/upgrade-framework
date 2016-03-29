@@ -33,7 +33,7 @@ import com.vmware.upgrade.UpgradeContext;
 /**
  * An abstract base class to facilitate implementation of {@link Graph}s.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

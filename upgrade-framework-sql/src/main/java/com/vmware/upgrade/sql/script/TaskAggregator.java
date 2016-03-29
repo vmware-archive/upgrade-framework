@@ -34,7 +34,7 @@ import com.vmware.upgrade.task.SerialAggregateTask;
  * Captures each individual SQL as a {@link RawSQLTask} and returns the list of such
  * {@link RawSQLTask}s as a {@link SerialAggregateTask}
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

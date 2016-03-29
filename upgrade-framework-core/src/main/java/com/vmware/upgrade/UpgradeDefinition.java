@@ -31,7 +31,7 @@ import com.vmware.upgrade.factory.UpgradeDefinitionFactory;
  *
  * @see UpgradeDefinitionFactory
  *
- * @author Stephen Evanchik <evanchik@vmware.com>
+ * @author Stephen Evanchik evanchik@vmware.com
  * @version 1.0
  * @since 1.0
  */

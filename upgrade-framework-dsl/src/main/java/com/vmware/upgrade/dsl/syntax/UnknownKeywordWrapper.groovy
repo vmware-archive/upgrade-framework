@@ -31,7 +31,7 @@ package com.vmware.upgrade.dsl.syntax
  * The improved error handling applies only if the delegate is a map [this wrapper is safe
  * to use if delegate is <i>not</i> a map, but it will not provide any benefit].
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

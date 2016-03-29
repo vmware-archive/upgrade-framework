@@ -29,7 +29,7 @@ import com.vmware.upgrade.sequencing.Version
 /**
  * Syntax to parse a manifest object describing zero or more {@link UpgradeTaskModel}s.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

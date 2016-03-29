@@ -32,7 +32,7 @@ import org.testng.annotations.Test;
 /**
  * A test class to verify the behavior of {@link IndexSyntax}.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

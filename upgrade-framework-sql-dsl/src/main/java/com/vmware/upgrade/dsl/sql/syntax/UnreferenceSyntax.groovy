@@ -27,7 +27,7 @@ import com.vmware.upgrade.dsl.sql.model.UnreferenceModel;
 /**
  * {@code UnreferenceSyntax} defines the syntax for the {@code unreference} keyword.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -28,7 +28,7 @@ import com.vmware.upgrade.sql.SQLStatement;
  * {@code TableCreationModel} is an {@link SQLStatement} that represents the
  * creation of a table.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

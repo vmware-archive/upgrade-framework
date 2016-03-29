@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
 /**
  * A test class to verify the behavior of {@link PersistenceContextHelper}.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

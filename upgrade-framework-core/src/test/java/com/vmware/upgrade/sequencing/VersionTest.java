@@ -31,7 +31,7 @@ import org.testng.annotations.Test;
 /**
  * Ensure that {@link Version} correctly identifies valid versions and their transition state.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

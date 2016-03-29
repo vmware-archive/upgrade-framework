@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
 /**
  * Test cases for the "from" and "to" keywords.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

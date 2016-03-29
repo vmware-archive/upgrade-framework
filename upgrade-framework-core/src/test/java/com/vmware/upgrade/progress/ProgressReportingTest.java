@@ -44,7 +44,7 @@ import org.testng.annotations.Test;
  * @see ImmutableProgressReport
  * @see SimpleProgressReporter
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -31,7 +31,7 @@ import com.vmware.upgrade.dsl.TaskResolver
  *
  * @see #createTask(UpgradeContext)
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

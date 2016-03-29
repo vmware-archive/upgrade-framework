@@ -38,7 +38,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * {@link SQLStatement} models such that when their raw SQL is retrieved, some
  * type of existence check is performed (e.g. table or column existence).
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

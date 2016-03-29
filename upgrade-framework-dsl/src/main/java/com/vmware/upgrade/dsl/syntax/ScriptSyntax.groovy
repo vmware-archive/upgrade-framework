@@ -39,7 +39,7 @@ import org.apache.commons.lang.StringUtils
  * This class handles top-level loading of a script and handling of script-level
  * {@linkplain #keywords keywords}.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -25,7 +25,7 @@ package com.vmware.upgrade.sql.script;
 /**
  * Simple interface that aggregates parsed SQLs and then return in the chosen type.
  *
- * @author Ankit Shah <ankitsha@vmware.com>
+ * @author Ankit Shah ankitsha@vmware.com
  * @version 1.0
  * @since 1.0
  */

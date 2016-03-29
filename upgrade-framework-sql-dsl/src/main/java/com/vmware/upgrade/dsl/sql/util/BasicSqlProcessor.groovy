@@ -30,7 +30,7 @@ import com.vmware.upgrade.sql.task.ScriptTask
 /**
  * A {@link Processor} which defines the basic {@code sql} and {@code file} keywords.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

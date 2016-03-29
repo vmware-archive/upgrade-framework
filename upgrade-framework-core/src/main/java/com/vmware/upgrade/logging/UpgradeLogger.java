@@ -27,7 +27,7 @@ package com.vmware.upgrade.logging;
  * remain in-sync with the {@code Logger} interface in {@code com.vmware.vcloud.activity.logging}
  * and {@code com.vmware.vcloud.logging}) for project-specific customizations.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

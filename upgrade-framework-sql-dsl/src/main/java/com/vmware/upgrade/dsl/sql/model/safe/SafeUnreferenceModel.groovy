@@ -34,7 +34,7 @@ import com.vmware.upgrade.sql.DatabaseType
  * A check is performed to ensure the referencing table (aka source / table being
  * altered) exists before execution.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

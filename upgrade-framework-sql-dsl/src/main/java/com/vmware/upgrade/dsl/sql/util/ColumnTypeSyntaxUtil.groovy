@@ -27,7 +27,7 @@ import com.vmware.upgrade.dsl.sql.syntax.DataType
 /**
  * Utility class for syntax-related classes to perform common operations on a {@link ColumnType}
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

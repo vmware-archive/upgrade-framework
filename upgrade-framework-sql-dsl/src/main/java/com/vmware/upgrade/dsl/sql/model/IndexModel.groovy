@@ -29,7 +29,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * {@code IndexModel} is a {@link SQLStatement} that represents the
  * creation of an index.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

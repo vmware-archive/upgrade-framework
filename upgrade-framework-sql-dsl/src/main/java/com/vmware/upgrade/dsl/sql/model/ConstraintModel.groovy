@@ -44,7 +44,7 @@ import com.vmware.upgrade.dsl.sql.util.ConstraintNameUtil
  * As an example, if a primary key on the "id" column of a table named
  * "example" was to be created, it would have the name "pk_example_id".
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

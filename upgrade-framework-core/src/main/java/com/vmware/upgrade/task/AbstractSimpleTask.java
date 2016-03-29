@@ -31,7 +31,7 @@ import com.vmware.upgrade.progress.impl.SimpleProgressReporter;
  *
  * @see AbstractAggregateTask
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

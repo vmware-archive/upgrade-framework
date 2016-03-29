@@ -30,7 +30,7 @@ import com.vmware.upgrade.sequencing.Graph.Edge;
 /**
  * Utility class for convenience methods related to use of {@link Graph} instances.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

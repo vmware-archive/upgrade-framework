@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 /**
  * An internal {@link UpgradeLogger} implementation leveraged by {@link UpgradeLoggerHelper}.
  *
- * @author Stephen Evanchik <evanchik@vmware.com>
+ * @author Stephen Evanchik evanchik@vmware.com
  * @version 1.0
  * @since 1.0
  */

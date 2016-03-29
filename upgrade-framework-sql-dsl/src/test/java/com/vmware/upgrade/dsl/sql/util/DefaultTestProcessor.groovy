@@ -28,7 +28,7 @@ import static com.vmware.upgrade.dsl.sql.syntax.ColumnType.*
 /**
  * A {@link Processor} for testing purposes.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -28,7 +28,7 @@ import com.vmware.upgrade.dsl.util.FinalVariableBinding
  * A DSL model object defining a namespace within which {@link UpgradeDefinitionModel}s must be
  * uniquely named.
  *
- * @author Ankit Shah <ankitsha@vmware.com>
+ * @author Ankit Shah ankitsha@vmware.com
  * @version 1.0
  * @since 1.0
  */

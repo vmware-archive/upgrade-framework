@@ -37,7 +37,7 @@ import org.codehaus.groovy.GroovyException
 /**
  * Main entry point for loading upgrade manifests and definitions.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

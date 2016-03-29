@@ -30,7 +30,7 @@ import com.vmware.upgrade.PersistenceContext;
  * A {@link PersistenceContextReference} serves as a doubly-keyed map entry for use with
  * {@link PersistenceContextHelper}.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

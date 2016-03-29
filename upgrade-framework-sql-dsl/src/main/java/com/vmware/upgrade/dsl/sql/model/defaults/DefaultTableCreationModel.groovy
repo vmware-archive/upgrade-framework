@@ -33,7 +33,7 @@ import com.vmware.upgrade.sql.DatabaseType
  * The raw SQL returned by {@link #get(DatabaseType)} will not check for the
  * non-existence of the table before creation.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

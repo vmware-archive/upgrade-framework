@@ -29,7 +29,7 @@ import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel
 /**
  * A test utility for loading upgrade definitions.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -28,7 +28,7 @@ import java.util.Collection;
  * This class contains a method to calculate task state of a parent task from a collection
  * of task states of its children.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

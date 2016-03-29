@@ -43,7 +43,7 @@ import org.testng.Assert;
 /**
  * A utility for upgrade DDL semantic tests to use.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

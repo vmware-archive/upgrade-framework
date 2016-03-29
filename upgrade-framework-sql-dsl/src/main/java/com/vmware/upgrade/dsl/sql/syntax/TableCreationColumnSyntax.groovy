@@ -35,7 +35,7 @@ import com.vmware.upgrade.sql.DatabaseType
  * bug in Groovy that prevents a user-defined propertyMissing method being set
  * on one. See {@link http://jira.codehaus.org/browse/GROOVY-4862}
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

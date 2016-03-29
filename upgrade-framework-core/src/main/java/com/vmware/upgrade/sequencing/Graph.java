@@ -33,7 +33,7 @@ import com.vmware.upgrade.UpgradeContext;
  * <p>
  * The target of all {@link Edge}s must be strictly greater than the source.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

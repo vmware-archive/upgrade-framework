@@ -33,7 +33,7 @@ import com.vmware.upgrade.dsl.sql.model.CommentModel;
  * For a column comment:
  * {@code comment "example text" on "column_name" of "table_name"}
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

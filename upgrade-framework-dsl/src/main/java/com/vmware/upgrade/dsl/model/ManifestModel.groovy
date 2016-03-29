@@ -30,7 +30,7 @@ import com.vmware.upgrade.sequencing.Version
  * A DSL model object representing a {@link Graph} of {@link Graph.Edge}s represented by
  * {@link UpgradeTaskModel}s.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

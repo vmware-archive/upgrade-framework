@@ -28,7 +28,7 @@ import com.vmware.upgrade.sql.SQLStatement;
  * {@code UnreferenceModel} is an {@link SQLStatement} that represents the
  * deletion of a foreign key constraint.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

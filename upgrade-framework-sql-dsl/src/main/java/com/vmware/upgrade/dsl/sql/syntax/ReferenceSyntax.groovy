@@ -29,7 +29,7 @@ import java.lang.reflect.Method
 /**
  * {@code ReferenceSyntax} defines the syntax for the {@code reference} keyword.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

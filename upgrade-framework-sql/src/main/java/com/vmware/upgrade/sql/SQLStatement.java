@@ -27,7 +27,7 @@ package com.vmware.upgrade.sql;
  * <p>
  * The exact string that is returned is dependent on the {@link DatabaseType}
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

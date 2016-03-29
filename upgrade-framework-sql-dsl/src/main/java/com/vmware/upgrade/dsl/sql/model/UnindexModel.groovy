@@ -28,7 +28,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * {@code UnindexModel} is a {@link SQLStatement} that represents the
  * removal of an index.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

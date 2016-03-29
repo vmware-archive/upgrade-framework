@@ -28,7 +28,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * {@link CommentModel} is an {@link SQLStatement} that represents a table or
  * column comment.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

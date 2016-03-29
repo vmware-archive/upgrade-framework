@@ -33,7 +33,7 @@ import com.vmware.upgrade.progress.ProgressReporter.ProgressListener;
  * A {@link Task} represents some concrete piece of work to be performed as part of the upgrade
  * process.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

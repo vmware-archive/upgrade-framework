@@ -39,7 +39,7 @@ import com.vmware.upgrade.task.SerialAggregateTask;
  * {@linkplain DatabasePersistenceContext#parseWithAggregator parses} an SQL script and executes
  * the resulting {@link RawSQLTask}s.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

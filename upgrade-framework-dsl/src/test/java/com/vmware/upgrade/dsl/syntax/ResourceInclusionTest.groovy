@@ -37,7 +37,7 @@ import org.testng.annotations.Test
 /**
  * A test class to verify the resource-inclusion related behavior of {@link ScriptSyntax}.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

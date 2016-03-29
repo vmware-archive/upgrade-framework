@@ -37,7 +37,7 @@ import com.vmware.upgrade.sql.SQLStatement;
  *   <li>Drop primary/unique keys</li>
  * </ul>
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

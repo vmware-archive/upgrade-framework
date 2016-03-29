@@ -35,7 +35,7 @@ import com.vmware.upgrade.sequencing.Version
  * version information related to that process (the required source version and the resulting
  * version assuming successful execution).
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

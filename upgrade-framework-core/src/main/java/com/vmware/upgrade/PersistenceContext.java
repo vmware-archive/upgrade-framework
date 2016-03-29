@@ -30,7 +30,7 @@ package com.vmware.upgrade;
  * @see UpgradeContext#getPersistenceContext(Class)
  * @see UpgradeContext#getPersistenceContext(Class, String)
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

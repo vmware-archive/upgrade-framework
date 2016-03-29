@@ -36,7 +36,7 @@ import com.vmware.upgrade.dsl.Processor
 /**
  * Implementation of {@link Processor} to facilitate testing of required keyword error handling.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

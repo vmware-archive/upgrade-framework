@@ -32,7 +32,7 @@ import static com.vmware.upgrade.dsl.sql.util.ReservedKeywords.RESERVED
 /**
  * A utility class to facilitate validation of strings to SQL-related DSL keywords.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -38,7 +38,7 @@ import com.vmware.upgrade.sequencing.Version;
  * Where appropriate, helper classes are provided to aid in the implementation of these methods.
  * See each method's documentation for more information.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

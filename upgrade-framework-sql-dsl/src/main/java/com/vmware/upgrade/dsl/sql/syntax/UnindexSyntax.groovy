@@ -28,7 +28,7 @@ import com.vmware.upgrade.dsl.syntax.UnknownKeywordException
 /**
  * {@code UnindexSyntax} defines the syntax for the {@code unindex} keyword.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

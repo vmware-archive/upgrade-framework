@@ -25,7 +25,7 @@ package com.vmware.upgrade.dsl.sql.util;
 /**
  * Interface to control whether or not to allow nulls.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

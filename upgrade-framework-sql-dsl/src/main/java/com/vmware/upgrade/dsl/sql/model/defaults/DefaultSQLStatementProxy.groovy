@@ -40,7 +40,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * For example, if a table is trying to be created and one already exists with
  * the specified name, the operation will fail with an {@code SQLException}.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

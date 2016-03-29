@@ -29,7 +29,7 @@ import org.apache.log4j.Level;
 /**
  * {@link Logger} implementation.
  *
- * @author Vassil Popovski <vpopovski@vmware.com>
+ * @author Vassil Popovski vpopovski@vmware.com
  * @version 1.0
  * @since 1.0
  */

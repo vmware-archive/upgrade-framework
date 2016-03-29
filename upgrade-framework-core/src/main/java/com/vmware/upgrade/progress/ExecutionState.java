@@ -51,7 +51,7 @@ import java.util.Set;
  *             SUSPENDED ---> CANCELLED
  * </pre>
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

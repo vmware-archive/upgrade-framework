@@ -30,7 +30,7 @@ import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 /**
  * {@code TableAlterationSyntax} defines the syntax for the {@code alter} keyword.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -25,7 +25,7 @@ package com.vmware.upgrade.logging;
 /**
  * <code>LogLevel</code> enumeration contains all possible log severities
  *
- * @author Vassil Popovski <vpopovski@vmware.com>
+ * @author Vassil Popovski vpopovski@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -31,7 +31,7 @@ import com.vmware.upgrade.sql.script.SQLParsedDataAggregator;
 /**
  * A {@link PersistenceContext} suitable for interacting with a relational database via JDBC.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

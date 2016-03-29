@@ -34,7 +34,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * The raw SQL returned by {@link #get(DatabaseType)} will not check for the
  * existence of table or column before execution.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

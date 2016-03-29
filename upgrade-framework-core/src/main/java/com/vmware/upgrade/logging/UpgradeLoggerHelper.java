@@ -32,7 +32,7 @@ import com.vmware.upgrade.UpgradeContext;
  *
  * Intended to be used by {@link UpgradeContext} implementations.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

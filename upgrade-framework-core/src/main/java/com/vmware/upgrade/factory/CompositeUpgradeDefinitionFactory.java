@@ -44,7 +44,7 @@ import org.apache.commons.lang.StringUtils;
  * A factory which creates an {@link UpgradeDefinition} encapsulating the
  * {@link UpgradeDefinition}s produced by the delegate {@link UpgradeDefinitionFactory} instances.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

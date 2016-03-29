@@ -34,7 +34,7 @@ import com.vmware.upgrade.task.SerialAggregateTask
 /**
  * Syntax to parse an upgrade object defining a {@link UpgradeDefinitionModel}.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -64,7 +64,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * a transition version for which {@link #isTransition()} is true.  Internally
  * this is a {@code Version} whose qualifier contains the string "transition".
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

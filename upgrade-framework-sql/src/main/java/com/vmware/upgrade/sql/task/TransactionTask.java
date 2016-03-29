@@ -34,7 +34,7 @@ import com.vmware.upgrade.task.AbstractDelegatingTask;
 /**
  * Task that runs the provided task within a database transaction.
  *
- * @author Ankit Shah <ankitsha@vmware.com>
+ * @author Ankit Shah ankitsha@vmware.com
  * @version 1.0
  * @since 1.0
  */

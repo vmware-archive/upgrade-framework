@@ -34,7 +34,7 @@ import com.vmware.upgrade.progress.impl.SimpleProgressReporter;
  * {@link Task} that encapsulates another {@link Task}. Executing an {@link AbstractDelegatingTask}
  * involves delegating to the encapsulated task to get work done.
  *
- * @author Ankit Shah <ankitsha@vmware.com>
+ * @author Ankit Shah ankitsha@vmware.com
  * @version 1.0
  * @since 1.0
  */

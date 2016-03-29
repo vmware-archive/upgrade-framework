@@ -44,7 +44,7 @@ import org.apache.commons.math.stat.descriptive.SummaryStatistics;
  *
  * @see ExecutionStateAggregator#aggregate(java.util.Collection)
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

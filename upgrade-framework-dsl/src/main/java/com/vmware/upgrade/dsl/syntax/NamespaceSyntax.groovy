@@ -29,7 +29,7 @@ import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel
  * Syntax to parse a namespace object containing zero or more uniquely-named
  * {@link UpgradeDefinitionModel}s.
  *
- * @author Ankit Shah <ankitsha@vmware.com>
+ * @author Ankit Shah ankitsha@vmware.com
  * @version 1.0
  * @since 1.0
  */

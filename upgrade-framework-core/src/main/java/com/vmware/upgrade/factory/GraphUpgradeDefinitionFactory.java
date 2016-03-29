@@ -42,7 +42,7 @@ import com.vmware.upgrade.task.SerialAggregateTask;
  * A factory which will create {@link UpgradeDefinition}s from a supplied {@link Graph} for
  * a specified {@link UpgradeContext}.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

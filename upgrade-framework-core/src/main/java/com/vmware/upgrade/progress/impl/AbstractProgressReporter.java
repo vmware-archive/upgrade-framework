@@ -35,7 +35,7 @@ import org.apache.commons.lang.NullArgumentException;
 /**
  * An abstract implementation of a {@link ProgressReporter} which handles management of listeners
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

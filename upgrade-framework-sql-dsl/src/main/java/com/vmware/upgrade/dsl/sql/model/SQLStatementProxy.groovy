@@ -31,7 +31,7 @@ import com.vmware.upgrade.sql.SQLStatement;
  * @see AbstractSQLStatementProxy
  * @see DefaultSQLStatementProxy
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

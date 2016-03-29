@@ -27,7 +27,7 @@ import com.vmware.upgrade.sequencing.Version
 /**
  * An exception class for errors encountered during parsing of Upgrade Definitions and Manifests.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

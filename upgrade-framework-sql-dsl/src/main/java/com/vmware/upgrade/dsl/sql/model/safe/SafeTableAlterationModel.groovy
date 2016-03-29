@@ -44,7 +44,7 @@ import com.vmware.upgrade.sql.SQLStatement
  *   <li>dropping a constraint, then a check is performed to ensure the table exists.</li>
  * </ol>
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

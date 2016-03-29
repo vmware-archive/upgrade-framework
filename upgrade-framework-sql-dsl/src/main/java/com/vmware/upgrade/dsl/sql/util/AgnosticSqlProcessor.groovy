@@ -48,7 +48,7 @@ import com.vmware.upgrade.task.SerialAggregateTask
 /**
  * A {@link Processor} which defines keywords for expressing SQL in a database-agnostic way.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -34,7 +34,7 @@ import java.util.Set;
  *
  * This class uses more memory than {@code Binding} as the set of variable names is duplicated.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

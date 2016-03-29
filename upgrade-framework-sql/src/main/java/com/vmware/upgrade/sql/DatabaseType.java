@@ -28,7 +28,7 @@ import java.io.IOException;
  * Tagging interface intended for with {@link DatabasePersistenceContext} in conjunction with
  * the extensible enum pattern.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

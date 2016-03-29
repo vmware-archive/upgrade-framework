@@ -30,7 +30,7 @@ import org.testng.Assert
 /**
  * A utility class for upgrade DDL syntax tests to use.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

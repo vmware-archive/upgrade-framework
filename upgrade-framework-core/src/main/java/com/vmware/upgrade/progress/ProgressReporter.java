@@ -34,7 +34,7 @@ import org.apache.commons.lang.NullArgumentException;
  * Progress can either be pulled on an as-needed basis (for cases such as when something displaying
  * the progress is force-refreshed by the user) or {@link ProgressListener}s can be registered.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

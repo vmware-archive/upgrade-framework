@@ -39,7 +39,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * and it will be converted automatically.
  * </p>
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

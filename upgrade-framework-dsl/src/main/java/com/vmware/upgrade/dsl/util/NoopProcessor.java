@@ -33,7 +33,7 @@ import com.vmware.upgrade.dsl.Processor;
 /**
  * A default {@link Processor} implementation which defines no keywords or properties.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

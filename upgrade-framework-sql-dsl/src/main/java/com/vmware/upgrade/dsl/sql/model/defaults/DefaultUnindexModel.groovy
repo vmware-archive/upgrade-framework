@@ -33,7 +33,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * The raw SQL returned by {@link #get(DatabaseType)} will not check for the
  * existence of the table before execution.
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

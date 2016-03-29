@@ -28,7 +28,7 @@ package com.vmware.upgrade.dsl.sql.util
  * This is primarily used to generate constraint names due to DBMS imposed
  * upper bounds on their length.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

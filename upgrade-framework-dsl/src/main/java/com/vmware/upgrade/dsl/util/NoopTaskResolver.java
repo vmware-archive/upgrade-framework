@@ -35,7 +35,7 @@ import com.vmware.upgrade.task.TrivialTask;
  * A default {@link TaskResolver} implementation which {@linkplain #resolve resolves} all
  * {@link Class}es into {@link Task}s which do nothing.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

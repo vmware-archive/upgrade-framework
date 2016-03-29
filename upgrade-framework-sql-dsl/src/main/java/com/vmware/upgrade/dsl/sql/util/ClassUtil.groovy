@@ -27,7 +27,7 @@ import org.codehaus.groovy.reflection.CachedField
 
 /**
  *
- * @author Matthew Frost <mfrost@vmware.com>
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */

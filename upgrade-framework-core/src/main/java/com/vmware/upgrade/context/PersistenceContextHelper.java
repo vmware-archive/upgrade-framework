@@ -35,7 +35,7 @@ import com.vmware.upgrade.UpgradeContext;
  * Utility class for persistence-related convenience methods to facilitate the implementation of
  * {@link UpgradeContext}s.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

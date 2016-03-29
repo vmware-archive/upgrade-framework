@@ -26,7 +26,7 @@ package com.vmware.upgrade.logging;
  * Core interface for logging. All vCloud services must use this interface for
  * all logging purposes.
  *
- * @author Vassil Popovski <vpopovski@vmware.com>
+ * @author Vassil Popovski vpopovski@vmware.com
  * @version 1.0
  * @since 1.0
  */

@@ -33,7 +33,7 @@ import org.codehaus.groovy.GroovyException
 /**
  * A test utility for loading upgrade definitions.
  *
- * @author Emil Sit <sit@vmware.com>
+ * @author Emil Sit sit@vmware.com
  * @version 1.0
  * @since 1.0
  */

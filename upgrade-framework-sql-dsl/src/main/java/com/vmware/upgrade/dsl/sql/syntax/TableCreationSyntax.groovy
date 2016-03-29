@@ -29,7 +29,7 @@ import com.vmware.upgrade.dsl.syntax.UnknownKeywordException
 /**
  * {@code TableCreationSyntax} defines the syntax for the {@code create} keyword.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

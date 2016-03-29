@@ -31,7 +31,7 @@ import com.vmware.upgrade.progress.ProgressReporter;
  * {@link SimpleProgressReporter} is a default implementation of {@link ProgressReporter} which
  * handles the simplest case of tracking progress which is incremented periodically.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

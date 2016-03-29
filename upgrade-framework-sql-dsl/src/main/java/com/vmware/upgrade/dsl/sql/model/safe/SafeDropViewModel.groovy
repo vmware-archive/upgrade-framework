@@ -34,7 +34,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * <p>
  * A check is performed to ensure the view exists before execution.
  *
- * @author Ryan Lewis <ryanlewis@vmware.com>
+ * @author Ryan Lewis ryanlewis@vmware.com
  * @version 1.0
  * @since 1.0
  */

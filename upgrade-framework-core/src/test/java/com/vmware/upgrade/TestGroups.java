@@ -25,7 +25,7 @@ package com.vmware.upgrade;
 /**
  * Constants for use as TestNG Test Groups.
  *
- * @author Stephen Evanchik <evanchik@vmware.com>
+ * @author Stephen Evanchik evanchik@vmware.com
  * @version 1.0
  * @since 1.0
  */

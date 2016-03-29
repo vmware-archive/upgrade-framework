@@ -25,7 +25,7 @@ package com.vmware.upgrade.progress;
 /**
  * A point-in-time representation of the progress of a task.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */

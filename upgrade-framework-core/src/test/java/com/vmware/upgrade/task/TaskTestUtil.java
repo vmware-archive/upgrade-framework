@@ -36,7 +36,7 @@ import com.vmware.upgrade.progress.ProgressReporter.ProgressListener;
  *
  * These fake tasks can be used to verify the functionality of logic that operates on tasks.
  *
- * @author Zach Shepherd <shepherdz@vmware.com>
+ * @author Zach Shepherd shepherdz@vmware.com
  * @version 1.0
  * @since 1.0
  */
