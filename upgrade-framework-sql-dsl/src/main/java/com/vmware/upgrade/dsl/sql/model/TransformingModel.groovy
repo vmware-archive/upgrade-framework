@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,27 +22,24 @@
 
 package com.vmware.upgrade.dsl.sql.model
 
+import com.vmware.upgrade.sql.SQLStatement
+import com.vmware.upgrade.transformation.Transformation
 
 /**
- * {@code TableCreationModel} is an {@link SQLStatement} that represents the
- * creation of a table.
+ * A {@link SQLStatement} that provides information related to the transformation the
+ * underlying model will make.
  *
- * @author Ryan Lewis ryanlewis@vmware.com
+ * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */
-public interface TableCreationModel extends TransformingModel {
-    /**
-     * Set the columns that to be created.
-     *
-     * @param columns List of columns
-     */
-    public void setColumns(List columns)
+public interface TransformingModel extends SQLStatement {
 
     /**
-     * Set the constraints to be created
+     * Get the {@link Transformation} this model will make.
      *
-     * @param constraints List of constraints
+     * @return {@link Transformation}
      */
-    public void setConstraints(List constraints)
+    public Transformation getTransformation()
+
 }

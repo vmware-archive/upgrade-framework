@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,7 +22,6 @@
 
 package com.vmware.upgrade.dsl.sql.model
 
-import com.vmware.upgrade.sql.SQLStatement
 
 /**
  * {@code ReferenceModel} is an {@link SQLStatement} that represents the
@@ -32,7 +31,7 @@ import com.vmware.upgrade.sql.SQLStatement
  * @version 1.0
  * @since 1.0
  */
-public interface ReferenceModel extends SQLStatement {
+public interface ReferenceModel extends TransformingModel {
     /**
      * Add columns from the source table that will be referencing the target
      * table.

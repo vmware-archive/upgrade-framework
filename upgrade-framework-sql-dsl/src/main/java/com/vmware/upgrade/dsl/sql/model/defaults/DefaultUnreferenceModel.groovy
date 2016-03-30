@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,10 +22,12 @@
 
 package com.vmware.upgrade.dsl.sql.model.defaults
 
-import com.vmware.upgrade.dsl.sql.model.UnreferenceModel;
-import com.vmware.upgrade.dsl.sql.util.ConstraintNameUtil;
-import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory;
+import com.vmware.upgrade.dsl.sql.model.UnreferenceModel
+import com.vmware.upgrade.dsl.sql.util.ConstraintNameUtil
+import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.sql.DatabaseType
+import com.vmware.upgrade.transformation.ReferenceTransformation
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultUnreferenceModel} is the core implementation of {@link UnreferenceModel}.
@@ -38,7 +40,7 @@ import com.vmware.upgrade.sql.DatabaseType
  * @since 1.0
  */
 public class DefaultUnreferenceModel implements UnreferenceModel {
-    private static final String DROP_CONSTRAINT_SQL = "ALTER TABLE %s DROP CONSTRAINT %s";
+    private static final String DROP_CONSTRAINT_SQL = "ALTER TABLE %s DROP CONSTRAINT %s"
 
     private static final String FOREIGN_KEY_NAME_FORMAT = "fk_%s2%s"
     private static final int FOREIGN_KEY_TABLE_NAME_LENGTH = 13
@@ -73,5 +75,11 @@ public class DefaultUnreferenceModel implements UnreferenceModel {
         )
 
         return SQLStatementFactory.format(DROP_CONSTRAINT_SQL, databaseType, sourceTable, referenceName)
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        return new ReferenceTransformation(sourceTable, targetTable, false,
+            Transformation.TransformationType.DROP_FOREIGN_KEY)
     }
 }

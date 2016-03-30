@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -27,6 +27,7 @@ import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 import com.vmware.upgrade.sql.DatabaseType
 import com.vmware.upgrade.sql.SQLStatement
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultCommentModel} is the core implementation of {@link CommentModel}.
@@ -111,6 +112,15 @@ Exec sp_addextendedproperty "MS_Description", "%1\$s", "SCHEMA", @schema, "TABLE
                 return SQLStatementFactory.format(commentType.getSql(databaseType), databaseType, text, entity)
             default:
                 throw new IllegalStateException("Unsupported comment type")
+        }
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        if (commentType == CommentType.COLUMN) {
+            return new Transformation(tableName, entity, Transformation.TransformationType.COMMENT)
+        } else {
+            return new Transformation(entity, Transformation.TransformationType.COMMENT)
         }
     }
 }

@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2014-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -26,6 +26,7 @@ import com.vmware.upgrade.dsl.sql.model.UnindexModel
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.sql.DatabaseType
 import com.vmware.upgrade.sql.SQLStatement
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultUnindexModel} is the core implementation of {@link UnindexModel}.
@@ -62,6 +63,11 @@ public class DefaultUnindexModel extends DefaultIndexModel implements UnindexMod
         final String index = indexName ?: getIndexName(databaseType)
 
         return SQLStatementFactory.format(DROP_INDEX_SQL.get(databaseType), databaseType, index, table)
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        return new Transformation(super.tableName, Transformation.TransformationType.DROP_INDEX)
     }
 
 }

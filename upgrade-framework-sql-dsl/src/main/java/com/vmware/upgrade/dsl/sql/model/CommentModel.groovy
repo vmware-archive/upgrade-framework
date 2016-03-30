@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,7 +22,6 @@
 
 package com.vmware.upgrade.dsl.sql.model
 
-import com.vmware.upgrade.sql.SQLStatement
 
 /**
  * {@link CommentModel} is an {@link SQLStatement} that represents a table or
@@ -32,13 +31,13 @@ import com.vmware.upgrade.sql.SQLStatement
  * @version 1.0
  * @since 1.0
  */
-public interface CommentModel extends SQLStatement {
+public interface CommentModel extends TransformingModel {
     /**
      * Sets the text of the comment.
      *
      * @param text the text of the comment.
      */
-    public void setText(text);
+    public void setText(text)
 
     /**
      * Sets the name of entity being commented on. This will be either the name
@@ -46,7 +45,7 @@ public interface CommentModel extends SQLStatement {
      *
      * @param name table or column name
      */
-    public void setEntity(name);
+    public void setEntity(name)
 
     /**
      * In the case that a column name was given by {@link #setEntity(String)},
@@ -54,5 +53,5 @@ public interface CommentModel extends SQLStatement {
      *
      * @param tableName
      */
-    public void columnComment(tableName);
+    public void columnComment(tableName)
 }

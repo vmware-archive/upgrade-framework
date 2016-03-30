@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -26,6 +26,8 @@ import com.vmware.upgrade.dsl.sql.model.ReferenceModel
 import com.vmware.upgrade.dsl.sql.util.ConstraintNameUtil
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.sql.DatabaseType
+import com.vmware.upgrade.transformation.ReferenceTransformation
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultReferenceModel} is the core implementation of {@link ReferenceModel}.
@@ -140,5 +142,11 @@ public class DefaultReferenceModel implements ReferenceModel {
             targetColumns.join(', '),
             propagationConstraint ?: ""
         )
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        return new ReferenceTransformation(sourceTable, targetTable, deleteAction != null,
+            Transformation.TransformationType.ADD_FOREIGN_KEY)
     }
 }

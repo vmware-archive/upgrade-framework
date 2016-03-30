@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2014-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -25,8 +25,8 @@ package com.vmware.upgrade.dsl.sql.model.defaults
 import com.vmware.upgrade.dsl.sql.model.IndexModel
 import com.vmware.upgrade.dsl.sql.util.ConstraintNameUtil
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
-import com.vmware.upgrade.dsl.syntax.UnknownKeywordException
 import com.vmware.upgrade.sql.DatabaseType
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultIndexModel} is the core implementation of {@link IndexModel}.
@@ -45,7 +45,7 @@ public class DefaultIndexModel implements IndexModel {
     private static final String INDEX_NAME_SQL = INDEX_NAME_PREFIX + "%s"
     private static final int INDEX_NAME_MAX_LENGTH = 30 - INDEX_NAME_PREFIX.length()
 
-    private def tableName
+    protected def tableName
     private List columns = []
     private String unique = " "
 
@@ -86,5 +86,14 @@ public class DefaultIndexModel implements IndexModel {
             getTable(databaseType),
             columns.collect{ SQLStatementFactory.create(it).get(databaseType) }.join(", ")
         )
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        if (UNIQUE_SQL.equalsIgnoreCase(unique)) {
+            return new Transformation(tableName, Transformation.TransformationType.ADD_UNIQUE_INDEX)
+        } else {
+            return new Transformation(tableName, Transformation.TransformationType.ADD_NON_UNIQUE_INDEX)
+        }
     }
 }

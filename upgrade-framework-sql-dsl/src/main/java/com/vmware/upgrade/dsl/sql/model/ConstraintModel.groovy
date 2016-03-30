@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -56,7 +56,7 @@ public class ConstraintModel {
     private static final String CONSTRAINT_NAME_FORMAT = "%s_%s_%s"
     private static final int CONSTRAINT_NAME_MAX_PART_LENGTH = 13
 
-    private static enum ConstraintType {
+    public static enum ConstraintType {
         ADD_PRIMARY_KEY("ADD", "PRIMARY KEY", "pk"),
         ADD_UNIQUE_KEY("ADD", "UNIQUE", "uq"),
         DROP_PRIMARY_KEY("DROP", "PRIMARY KEY", "pk"),

@@ -29,6 +29,7 @@ import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 import com.vmware.upgrade.sql.DatabaseType
 import com.vmware.upgrade.sql.SQLStatement
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultTableAlterationModel} is the core implementation of {@link TableAlterationModel}.
@@ -249,5 +250,36 @@ END;
             default:
                 throw new IllegalStateException("Unsupported alteration type")
         }
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        Transformation.TransformationType transformationAlterationType
+        switch (alterationType) {
+        case AlterationType.ADD_COLUMN:
+            transformationAlterationType = (columnType in NullAware && columnType.isNullable())
+                ? Transformation.TransformationType.ADD_COLUMN_NULL
+                : Transformation.TransformationType.ADD_COLUMN_NOT_NULL
+            break
+        case AlterationType.DROP_COLUMN:
+            transformationAlterationType = Transformation.TransformationType.DROP_COLUMN
+            break
+        case AlterationType.RENAME_COLUMN:
+            transformationAlterationType = Transformation.TransformationType.RENAME_COLUMN
+            break
+        case AlterationType.RETYPE_COLUMN:
+            transformationAlterationType = Transformation.TransformationType.RETYPE_COLUMN
+            break
+        case AlterationType.ADD_OR_DROP_CONSTRAINT:
+            if (constraintModel.type == ConstraintModel.ConstraintType.ADD_PRIMARY_KEY ||
+                constraintModel.type == ConstraintModel.ConstraintType.ADD_UNIQUE_KEY) {
+                transformationAlterationType = Transformation.TransformationType.ADD_CONSTRAINT
+            } else {
+                transformationAlterationType = Transformation.TransformationType.DROP_CONSTRAINT
+            }
+            break
+        }
+
+        return new Transformation(tableName, columnName, transformationAlterationType)
     }
 }

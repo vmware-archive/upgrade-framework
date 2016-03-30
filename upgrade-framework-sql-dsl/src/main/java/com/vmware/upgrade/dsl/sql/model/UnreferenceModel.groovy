@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,7 +22,6 @@
 
 package com.vmware.upgrade.dsl.sql.model
 
-import com.vmware.upgrade.sql.SQLStatement;
 
 /**
  * {@code UnreferenceModel} is an {@link SQLStatement} that represents the
@@ -32,18 +31,18 @@ import com.vmware.upgrade.sql.SQLStatement;
  * @version 1.0
  * @since 1.0
  */
-public interface UnreferenceModel extends SQLStatement {
+public interface UnreferenceModel extends TransformingModel {
     /**
      * Set the referencing table.
      *
      * @param tableName
      */
-    public void setSourceTable(table);
+    public void setSourceTable(table)
 
     /**
      * Set the table being referenced.
      *
      * @param tableName
      */
-    public void setTargetTable(table);
+    public void setTargetTable(table)
 }

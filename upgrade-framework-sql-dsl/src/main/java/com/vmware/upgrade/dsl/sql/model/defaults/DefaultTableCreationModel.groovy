@@ -26,6 +26,7 @@ import com.vmware.upgrade.dsl.sql.model.TableCreationModel
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 import com.vmware.upgrade.sql.DatabaseType
+import com.vmware.upgrade.transformation.Transformation
 
 /**
  * {@code DefaultTableCreationModel} is the core implementation of {@link TableCreationModel}.
@@ -71,5 +72,10 @@ public class DefaultTableCreationModel implements TableCreationModel {
         }
 
         return SQLStatementFactory.format(TABLE_CREATION_SQL, databaseType, tableName, createDefinitions)
+    }
+
+    @Override
+    public Transformation getTransformation() {
+        return new Transformation(tableName, Transformation.TransformationType.CREATE_TABLE)
     }
 }
