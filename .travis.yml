@@ -2,3 +2,6 @@ language: java
 jdk:
   - oraclejdk8
 install: mvn install -DskipTests=true -B -V
+notifications:
+  slack:
+    secure: ZhUG6+zzZeRoL4yoTbYArIvQ7VKFel3u8S7rf3oFVzvf7UkaZKH5wS/D0gcIm14XstmLB+xUyLZ7MfScF5TUZqGpQ/Bgsft5wx4rDZlWSJshPWP5i4i4VHpP/qz3D5Lf8tBpcEbxf8fTH69VRz9KqsQ7Qt4zNTAeOxotYZnj8J4=
