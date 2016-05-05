@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -25,7 +25,6 @@ package com.vmware.upgrade.dsl.sql.syntax
 import com.vmware.upgrade.dsl.sql.model.ConstraintModel
 import com.vmware.upgrade.dsl.sql.model.TableAlterationModel
 import com.vmware.upgrade.dsl.sql.util.ColumnTypeSyntaxUtil
-import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 
 /**
  * {@code TableAlterationSyntax} defines the syntax for the {@code alter} keyword.
@@ -43,8 +42,6 @@ class TableAlterationSyntax {
     }
 
     def add(column) {
-        ValidationUtil.validateEntityName(column)
-
         return [storing: { type ->
             def columnType = ColumnTypeSyntaxUtil.getColumnType(type)
             model.addColumn(column, columnType)
@@ -59,8 +56,6 @@ class TableAlterationSyntax {
 
     def rename(column) {
         return [to: { newName ->
-            ValidationUtil.validateEntityName(newName)
-
             model.renameColumn(column, newName)
         }]
     }

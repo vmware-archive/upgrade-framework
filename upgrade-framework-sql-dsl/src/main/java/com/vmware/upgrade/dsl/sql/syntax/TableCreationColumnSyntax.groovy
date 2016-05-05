@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,7 +24,6 @@ package com.vmware.upgrade.dsl.sql.syntax
 
 import com.vmware.upgrade.dsl.sql.util.ColumnTypeSyntaxUtil
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
-import com.vmware.upgrade.dsl.sql.util.ValidationUtil
 import com.vmware.upgrade.sql.DatabaseType
 
 /**
@@ -67,8 +66,6 @@ class TableCreationColumnSyntax {
     }
 
     def add(column) {
-        ValidationUtil.validateEntityName(column)
-
         return [storing: { type ->
             def columnType = ColumnTypeSyntaxUtil.getColumnType(type)
             Column col = new Column(column, columnType)

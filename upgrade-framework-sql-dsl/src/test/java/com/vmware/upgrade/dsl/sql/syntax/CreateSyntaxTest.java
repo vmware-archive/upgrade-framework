@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -93,6 +93,11 @@ public class CreateSyntaxTest {
                         "create 'TABLE' columns { add 'a' storing LONG }",
                         IllegalArgumentException.class,
                         "'TABLE' is a reserved keyword in: [MS_SQL, ORACLE, POSTGRES]"
+                },
+                new Object[] {
+                        "create 't1' columns { add 'add' storing LONG }",
+                        IllegalArgumentException.class,
+                        "'add' is a reserved keyword in: [MS_SQL, ORACLE]"
                 },
                 new Object[] {
                         "create 'TABLE_WITH_A_NAME_MORE_THAN_MAX_LENGTH' columns { add 'a' storing LONG }",

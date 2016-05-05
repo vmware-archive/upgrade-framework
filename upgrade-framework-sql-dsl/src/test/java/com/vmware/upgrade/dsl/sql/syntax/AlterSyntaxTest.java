@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -95,6 +95,16 @@ public class AlterSyntaxTest {
                         "alter 't' add 'add' storing 'char(1)'",
                         IllegalArgumentException.class,
                         "'add' is a reserved keyword in: [MS_SQL, ORACLE]"
+                },
+                new Object[] {
+                        "alter 't' add 'COLUMN_WITH_A_NAME_MORE_THAN_MAX_LENGTH' storing BOOL",
+                        IllegalArgumentException.class,
+                        "'COLUMN_WITH_A_NAME_MORE_THAN_MAX_LENGTH' exceeds maximum length of 30 characters"
+                },
+                new Object[] {
+                        "alter 't' rename 'a' to 'COLUMN_WITH_A_NAME_MORE_THAN_MAX_LENGTH'",
+                        IllegalArgumentException.class,
+                        "'COLUMN_WITH_A_NAME_MORE_THAN_MAX_LENGTH' exceeds maximum length of 30 characters"
                 },
                 new Object[] {
                         "alter oracle: 'o', ms_sql: 'm', postgres: 'p' add 'ADD' storing 'char(1)'",

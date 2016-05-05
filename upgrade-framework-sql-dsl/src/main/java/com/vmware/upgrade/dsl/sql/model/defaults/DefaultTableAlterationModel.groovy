@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -142,6 +142,8 @@ END;
     @Override
     public void addColumn(name, type) {
         ValidationUtil.validateNotReserved(name)
+        ValidationUtil.validateEntityName(name)
+
         this.alterationType = AlterationType.ADD_COLUMN
         this.columnName = name
         this.columnType = type
@@ -156,6 +158,8 @@ END;
     @Override
     public void renameColumn(name, newName) {
         ValidationUtil.validateNotReserved(newName)
+        ValidationUtil.validateEntityName(newName)
+
         this.alterationType = AlterationType.RENAME_COLUMN
         this.columnName = name
         this.newColumnName = newName
