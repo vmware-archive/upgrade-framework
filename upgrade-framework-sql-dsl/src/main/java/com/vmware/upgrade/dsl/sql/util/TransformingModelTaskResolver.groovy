@@ -96,8 +96,16 @@ public class TransformingModelTaskResolver implements TaskResolver {
         return hasUnknownTransformations.get()
     }
 
+    protected void setHasUnknownTransformations(boolean hasUnknownTransformations) {
+        this.hasUnknownTransformations.set(hasUnknownTransformations)
+    }
+
     public List<Transformation> getTransformations() {
         return transformations
+    }
+
+    protected void setTransformations(List<Transformation> transformations) {
+        this.transformations = transformations
     }
 
     @Override
