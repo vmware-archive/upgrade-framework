@@ -107,9 +107,19 @@ class UpgradeDefinitionSyntax {
      * Add an arbitrary Java class that implements Task to this upgrade
      * @return
      */
-    def java(fullClassName) {
-        def classObject = Class.forName(fullClassName)
-        addTask fullClassName, classObject
+    def java(classOrName) {
+        Class<?> classObject
+        String className
+        if (classOrName instanceof Class) {
+            classObject = classOrName
+            className = classObject.getName()
+        } else if (classOrName instanceof String) {
+            className = classOrName
+            classObject = Class.forName(className)
+        } else {
+            throw new IllegalArgumentException("Expected argument of type Class or String for 'java' keyword, but found '${classOrName.getClass()}'.")
+        }
+        addTask className, classObject
     }
 
     private List<UpgradeDefinitionModel.TaskDescriptor> aggregateTasksFrom(Closure cl, Processor processor = processor) {
