@@ -118,7 +118,7 @@ public class VersionTest {
 
     @Test(groups = { TestGroups.UNIT })
     public void testGet() {
-        Assert.assertEquals(Version.lookup("1.0.0").get(1).toString(), "\"0.0.0\"");
+        Assert.assertEquals(Version.lookup("\"1.0.0\"").get(1).toString(), "\"0.0.0\"");
         Assert.assertEquals(Version.lookup("[\"1.0.0\",\"2.0.0\"]").get(1).toString(), "\"2.0.0\"");
         Assert.assertEquals(Version.lookup("[ \"1.0.0\", \"2.0.0\" ]").get(3).toString(), "\"0.0.0\"");
     }

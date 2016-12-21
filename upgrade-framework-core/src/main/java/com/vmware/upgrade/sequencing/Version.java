@@ -30,15 +30,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vmware.upgrade.UpgradeDefinition;
 
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * This class describes a (potentially complex) version.
@@ -184,8 +185,19 @@ public class Version implements Comparable<Version> {
                 return VersionComponent.parse(version);
             }
 
+            if (!version.contains(",") && !(version.startsWith("\"") || version.startsWith("[") || version.startsWith("{"))) {
+                version = "\"" + version + "\"";;
+            } else if (version.lastIndexOf(",") == version.indexOf(",") && version.indexOf(",") != -1 && !(version.startsWith("[") || version.startsWith("{"))) {
+                String[] v = version.split(",");
+                version = "[\"" + v[0] + "\"," + "\"" + v[1] + "\" ]";
+            } else {
+                // Accept version as is
+            }
+
             final JsonFactory jsonFactory = new JsonFactory(new ObjectMapper());
-            final JsonParser jp = jsonFactory.createJsonParser(version);
+            final JsonParser jp = jsonFactory.createParser(version);
+            jp.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+
             final JsonToken token = jp.nextToken();
 
             final JsonNode node = jp.readValueAsTree();
@@ -359,7 +371,7 @@ public class Version implements Comparable<Version> {
         }
 
         public static ListComponent parse(JsonFactory jsonFactory, String component) throws JsonParseException, IOException {
-            final JsonParser jp = jsonFactory.createJsonParser(component);
+            final JsonParser jp = jsonFactory.createParser(component);
             final List<Component<?>> versionList = new ArrayList<Component<?>>();
 
             jp.nextToken();
@@ -474,7 +486,7 @@ public class Version implements Comparable<Version> {
         }
 
         public static MapComponent parse(JsonFactory jsonFactory, String component) throws JsonParseException, IOException {
-            final JsonParser jp = jsonFactory.createJsonParser(component);
+            final JsonParser jp = jsonFactory.createParser(component);
             final Map<String, Component<?>> versionMap = new LinkedHashMap<String, Component<?>>();
 
             jp.nextToken();
