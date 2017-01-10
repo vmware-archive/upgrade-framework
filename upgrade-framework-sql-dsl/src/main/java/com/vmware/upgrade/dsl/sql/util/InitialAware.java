@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014-2017 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,39 +23,16 @@
 package com.vmware.upgrade.dsl.sql.util;
 
 /**
- * Interface to control whether or not to allow nulls.
+ * Interface to control an initial value for a column.
  *
  * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */
-public interface NullAware {
-    /**
-     * Set the allowing of null values.
-     *
-     * @param arg the {@link Object} used to determine allowing of null values
-     */
-    public Object makeNullable(Object arg);
+public interface InitialAware {
 
-    /**
-     * Get the allowing or disallowing of null values.
-     *
-     * @return true if nulls are allowed, false otherwise
-     */
-    public boolean isNullable();
+    public Object setInitialValue(Object arg);
 
-    /**
-     * Make a copy of this object
-     *
-     * @return a copy of this {@link NullAware}
-     */
-    public NullAware makeCopy();
+    public Object getInitialValue();
 
-    /**
-     * Make a copy of this object that allows nulls, regardless of the nullability
-     * of the original object.
-     *
-     * @return a copy of this {@link NullAware} that will allow nulls
-     */
-    public NullAware makeNullableCopy();
 }

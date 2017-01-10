@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2015-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -57,14 +57,22 @@ class ColumnTypeSyntaxUtil {
     }
 
     /**
-     * Returns a closure using the {@code allowing} syntax to make {@code type} nullable.
+     * Returns a closure with additional column syntax for the appropriate type.
      *
      * @param type
-     * @return {@link Closure}, or the passed {@code type} if it is not {@link NullAware}
+     * @return {@link Closure}, or the passed {@code type} if it is neither {@link NullAware}
+     * or {@link InitialAware}
      */
-    static def getAllowingNullSyntax(type) {
-        if (type in NullAware) {
-            return [allowing: { type.makeNullable(it) }]
+    static def getAdditionalSyntax(type) {
+        def allowing = { type.makeNullable(it) }
+        def initial = { type.setInitialValue(it) }
+
+        if (type in NullAware && type in InitialAware) {
+            return [ allowing: allowing, initial: initial ]
+        } else if (type in NullAware) {
+            return [ allowing: allowing ]
+        } else if (type in InitialAware) {
+            return [ initial: initial ]
         }
 
         return type

@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -58,6 +58,34 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
+                        "alter 't' add 'a' storing BOOL allowing null initial postgres: 'true', default: '1'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a TINYINT DEFAULT 0 NULL\n" +
+                                            "UPDATE t SET a = '1'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a NUMBER(1,0) DEFAULT 0 NULL\n" +
+                                            "UPDATE t SET a = '1'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a BOOLEAN DEFAULT FALSE NULL\n" +
+                                            "UPDATE t SET a = 'true'\n" +
+                                            "\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
                         "alter 't' add 'a' storing DATE",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
@@ -104,6 +132,146 @@ public class AlterSemanticsTest {
                                     put("ms_sql", "ALTER TABLE t ADD a VARCHAR(16) NULL");
                                     put("oracle", "ALTER TABLE t ADD a VARCHAR2(16) NULL");
                                     put("postgres", "ALTER TABLE t ADD a VARCHAR(16) NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing VARCHAR(16) initial 'foobar'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing VARCHAR(16) initial ms_sql: 'foo', default: 'bar'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foo'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
+                                            "UPDATE t SET a = 'bar'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'bar'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'foobar'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing VARCHAR(16) initial 'foobar' allowing null",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
+                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER initial 1701",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a INT NULL\n" +
+                                            "UPDATE t SET a = '1701'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a NUMBER(10,0) NULL\n" +
+                                            "UPDATE t SET a = '1701'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a INT NULL\n" +
+                                            "UPDATE t SET a = '1701'\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
+                                            "END\n");
                                 }}
                         )
                 },

@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,6 +24,7 @@ package com.vmware.upgrade.dsl.sql.model.defaults
 
 import com.vmware.upgrade.dsl.sql.model.ConstraintModel
 import com.vmware.upgrade.dsl.sql.model.TableAlterationModel
+import com.vmware.upgrade.dsl.sql.util.InitialAware
 import com.vmware.upgrade.dsl.sql.util.NullAware
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.sql.util.ValidationUtil
@@ -110,6 +111,15 @@ END;
         ),
         ADD_OR_DROP_CONSTRAINT(
             SQLStatementFactory.create("ALTER TABLE %s %s")
+        ),
+        ADD_COLUMN_WITH_INITIAL(
+            SQLStatementFactory.create("""
+BEGIN
+ALTER TABLE %1\$s ADD %2\$s %3\$s
+UPDATE %1\$s SET %2\$s = %4\$s
+%5\$s
+END
+""")
         )
 
         private SQLStatement sql
@@ -178,10 +188,25 @@ END;
         this.constraintModel = constraint
     }
 
+    private String getAddColumnWithInitial(DatabaseType databaseType) {
+        boolean isNullable = (columnType in NullAware) ? columnType.isNullable() : true
+        Object nullableType = (isNullable) ? columnType : columnType.makeNullableCopy()
+        String set = (databaseType.toString().equalsIgnoreCase("POSTGRES")) ? "SET" : ""
+        String setNullability =
+            (isNullable) ? "" : "ALTER TABLE ${tableName} ALTER COLUMN ${columnName} ${set} NOT NULL"
+        Object initialValue = columnType.getInitialValue()
+
+        return SQLStatementFactory.format(AlterationType.ADD_COLUMN_WITH_INITIAL.getSql(databaseType),
+            databaseType, tableName, columnName, nullableType, initialValue, setNullability)
+    }
+
     @Override
     public String get(DatabaseType databaseType) {
         switch (alterationType) {
             case AlterationType.ADD_COLUMN:
+                if (columnType in InitialAware && columnType.getInitialValue() != null) {
+                    return getAddColumnWithInitial(databaseType)
+                }
                 return SQLStatementFactory.format(alterationType.getSql(databaseType), databaseType, tableName, columnName, columnType)
             case AlterationType.DROP_COLUMN:
                 return SQLStatementFactory.format(alterationType.getSql(databaseType), databaseType, tableName, columnName)

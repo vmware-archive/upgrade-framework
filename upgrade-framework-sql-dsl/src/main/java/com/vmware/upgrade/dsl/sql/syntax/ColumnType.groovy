@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2014-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2014-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,6 +23,7 @@
 package com.vmware.upgrade.dsl.sql.syntax
 
 import com.vmware.upgrade.dsl.sql.util.ClassUtil
+import com.vmware.upgrade.dsl.sql.util.InitialAware
 import com.vmware.upgrade.dsl.sql.util.NullAware
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.dsl.syntax.UnknownKeywordException
@@ -97,10 +98,12 @@ public class ColumnType {
     /**
      * Returns a {@link SQLStatement} that allows specifying columns as nullable.
      */
-    public static class NullableMapBasedSQLStatement implements NullAware, SQLStatement {
+    public static class NullableMapBasedSQLStatement implements InitialAware, NullAware, SQLStatement {
         private boolean allowNulls = false
         private final SQLStatement sqlStatement
         private final Map<String, String> statementMap
+
+        private Object initialValue = null
 
         private static final String NOT_NULL = "NOT NULL"
         private static final String NULL = "NULL"
@@ -122,9 +125,14 @@ public class ColumnType {
          * @param arg
          */
         @Override
-        public void makeNullable(def arg) {
+        public Object makeNullable(def arg) {
+            if (allowNulls) {
+                throw new IllegalArgumentException("'allowing null' has already been specified")
+            }
+
             if (arg == null) {
                 this.allowNulls = true
+                return [ initial: { this.setInitialValue(it) } ]
             } else {
                 throw new IllegalArgumentException("expected null following 'allowing' but found '${arg}'")
             }
@@ -143,8 +151,36 @@ public class ColumnType {
         }
 
         @Override
+        public Object setInitialValue(def arg) {
+            if (initialValue != null) {
+                throw new IllegalArgumentException("'initial' has already been specified")
+            }
+
+            if (arg != null) {
+                if (arg in String || arg in Number) {
+                    initialValue = "'" + arg.toString() + "'"
+                } else if (arg in Map) {
+                    initialValue = arg.collectEntries { k, v ->
+                        [(k): (v in String || v in Number) ? "'" + v + "'" : v]
+                    }
+                }
+            }
+            return [ allowing: { this.makeNullable(it) } ]
+        }
+
+        @Override
+        public Object getInitialValue() {
+            return initialValue
+        }
+
+        @Override
         public NullAware makeCopy() {
             return new NullableMapBasedSQLStatement(statementMap, allowNulls)
+        }
+
+        @Override
+        public NullAware makeNullableCopy() {
+            return new NullableMapBasedSQLStatement(statementMap, true)
         }
     }
 }

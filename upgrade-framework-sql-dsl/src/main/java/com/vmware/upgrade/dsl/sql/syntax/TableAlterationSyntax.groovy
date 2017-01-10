@@ -46,7 +46,7 @@ class TableAlterationSyntax {
             def columnType = ColumnTypeSyntaxUtil.getColumnType(type)
             model.addColumn(column, columnType)
 
-            return ColumnTypeSyntaxUtil.getAllowingNullSyntax(columnType)
+            return ColumnTypeSyntaxUtil.getAdditionalSyntax(columnType)
         }]
     }
 
@@ -65,7 +65,7 @@ class TableAlterationSyntax {
             def newType = ColumnTypeSyntaxUtil.getColumnType(type)
             model.retypeColumn(column, newType)
 
-            return ColumnTypeSyntaxUtil.getAllowingNullSyntax(newType)
+            return ColumnTypeSyntaxUtil.getAdditionalSyntax(newType)
         }]
     }
 

@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,6 +21,8 @@
  * ****************************************************************************/
 
 package com.vmware.upgrade.dsl.sql.syntax;
+
+import groovy.lang.MissingMethodException;
 
 import com.vmware.upgrade.TestGroups;
 import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel;
@@ -46,6 +48,10 @@ public class AlterSyntaxTest {
                 new Object[] { "alter 't' add 'a' storing NVARCHAR(16)" },
                 new Object[] { "alter 't' add 'a' storing LONG" },
                 new Object[] { "alter 't' add 'a' storing BOOL allowing null" },
+                new Object[] { "alter 't' add 'a' storing LONG initial 12345" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'i'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i' allowing null" },
                 new Object[] { "alter oracle: 't', ms_sql: 'x', postgres: 'p' add 'a' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'a1', ms_sql: 'a2', postgres: 'a3' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'ANALYZE', ms_sql: 'ACCESS', postgres: 'ADD' storing 'char(1)'" },
@@ -110,6 +116,26 @@ public class AlterSyntaxTest {
                         "alter oracle: 'o', ms_sql: 'm', postgres: 'p' add 'ADD' storing 'char(1)'",
                         IllegalArgumentException.class,
                         "'ADD' is a reserved keyword in: [MS_SQL, ORACLE]"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER allowing null allowing null",
+                        MissingMethodException.class,
+                        ""
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER allowing null initial 0 allowing null",
+                        IllegalArgumentException.class,
+                        "'allowing null' has already been specified"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER initial 0 initial 0",
+                        MissingMethodException.class,
+                        ""
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER initial 0 allowing null initial 0",
+                        IllegalArgumentException.class,
+                        "'initial' has already been specified"
                 }
         };
     }
