@@ -22,8 +22,6 @@
 
 package com.vmware.upgrade.dsl.sql.syntax;
 
-import groovy.lang.MissingMethodException;
-
 import com.vmware.upgrade.TestGroups;
 import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel;
 import com.vmware.upgrade.dsl.syntax.UnknownKeywordException;
@@ -44,14 +42,23 @@ public class AlterSyntaxTest {
         return new Object[][] {
                 new Object[] { "alter 't' add 'a' storing 'char(1)'" },
                 new Object[] { "alter 't' add 'a' storing BOOL" },
+                new Object[] { "alter 't' add 'a' storing BOOL default_sql '1'" },
                 new Object[] { "alter 't' add 'a' storing DATE" },
+                new Object[] { "alter 't' add 'a' storing DATE default_sql ms_sql: 'GETDATE()', oracle: 'SYSTIMESTAMP', postgres: 'NOW()'" },
                 new Object[] { "alter 't' add 'a' storing NVARCHAR(16)" },
                 new Object[] { "alter 't' add 'a' storing LONG" },
                 new Object[] { "alter 't' add 'a' storing BOOL allowing null" },
                 new Object[] { "alter 't' add 'a' storing LONG initial 12345" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j'" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'i'" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null default_value 'j'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null default_value null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'i' default_value 'j'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i' default_value 'j' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j' initial 'i' allowing null" },
                 new Object[] { "alter oracle: 't', ms_sql: 'x', postgres: 'p' add 'a' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'a1', ms_sql: 'a2', postgres: 'a3' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'ANALYZE', ms_sql: 'ACCESS', postgres: 'ADD' storing 'char(1)'" },
@@ -119,8 +126,8 @@ public class AlterSyntaxTest {
                 },
                 new Object[] {
                         "alter 't' add 'a' storing INTEGER allowing null allowing null",
-                        MissingMethodException.class,
-                        ""
+                        IllegalArgumentException.class,
+                        "'allowing null' has already been specified"
                 },
                 new Object[] {
                         "alter 't' add 'a' storing INTEGER allowing null initial 0 allowing null",
@@ -129,13 +136,38 @@ public class AlterSyntaxTest {
                 },
                 new Object[] {
                         "alter 't' add 'a' storing INTEGER initial 0 initial 0",
-                        MissingMethodException.class,
-                        ""
+                        IllegalArgumentException.class,
+                        "'initial' has already been specified"
                 },
                 new Object[] {
                         "alter 't' add 'a' storing INTEGER initial 0 allowing null initial 0",
                         IllegalArgumentException.class,
                         "'initial' has already been specified"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER default_value 0 default_value 0",
+                        IllegalArgumentException.class,
+                        "'default_value' has already been specified"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER default_value 0 allowing null default_value 0",
+                        IllegalArgumentException.class,
+                        "'default_value' has already been specified"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing DATE default_sql 'NOW()' allowing null default_sql 'NOW()'",
+                        IllegalArgumentException.class,
+                        "'default_sql' has already been specified"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER default_value null",
+                        IllegalArgumentException.class,
+                        "Default cannot be null unless 'allowing null' was specified ('default_value null' may be provided with 'allowing null' but is not necessary)"
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing BOOL default_sql 1",
+                        IllegalArgumentException.class,
+                        "Expected a String or Map of Strings following 'default_sql'"
                 }
         };
     }

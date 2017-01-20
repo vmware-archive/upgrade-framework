@@ -86,7 +86,27 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
+                        "alter 't' add 'a' storing BOOL default_sql '1'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a TINYINT DEFAULT 1 NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NUMBER(1,0) DEFAULT 1 NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a BOOLEAN DEFAULT 1 NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
                         "alter 't' add 'a' storing DATE",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a DATETIME DEFAULT GETDATE() NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a TIMESTAMP (6) DEFAULT SYSTIMESTAMP NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a TIMESTAMP (6) DEFAULT NOW() NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing DATE default_sql ms_sql: 'GETDATE()', oracle: 'SYSTIMESTAMP', postgres: 'NOW()'",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put("ms_sql", "ALTER TABLE t ADD a DATETIME DEFAULT GETDATE() NOT NULL");
@@ -272,6 +292,94 @@ public class AlterSemanticsTest {
                                             "UPDATE t SET a = '1701'\n" +
                                             "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
                                             "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER initial 1 default_value 2 allowing null",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL\n" +
+                                            "UPDATE t SET a = '1'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '2' NULL\n" +
+                                            "UPDATE t SET a = '1'\n" +
+                                            "\n" +
+                                            "END\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN\n" +
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL\n" +
+                                            "UPDATE t SET a = '1'\n" +
+                                            "\n" +
+                                            "END\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing BOOL default_value default: '1', postgres: 'true'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a TINYINT DEFAULT '1' NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NUMBER(1,0) DEFAULT '1' NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a BOOLEAN DEFAULT 'true' NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing NVARCHAR(16) default_value 'foo'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a NVARCHAR(16) DEFAULT 'foo' NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NVARCHAR2(16) DEFAULT 'foo' NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a VARCHAR(16) DEFAULT 'foo' NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER default_value 1701",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a INT DEFAULT '1701' NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '1701' NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a INT DEFAULT '1701' NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing NVARCHAR(16) allowing null default_value 'foo'",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a NVARCHAR(16) DEFAULT 'foo' NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NVARCHAR2(16) DEFAULT 'foo' NULL");
+                                    put("postgres", "ALTER TABLE t ADD a VARCHAR(16) DEFAULT 'foo' NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER allowing null default_value 1701",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a INT DEFAULT '1701' NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '1701' NULL");
+                                    put("postgres", "ALTER TABLE t ADD a INT DEFAULT '1701' NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER default_value ms_sql: 1, oracle: 2, postgres: 3",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "ALTER TABLE t ADD a INT DEFAULT '1' NOT NULL");
+                                    put("oracle", "ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '2' NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a INT DEFAULT '3' NOT NULL");
                                 }}
                         )
                 },

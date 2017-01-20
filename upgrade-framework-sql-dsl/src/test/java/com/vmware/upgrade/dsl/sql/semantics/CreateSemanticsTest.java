@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2015 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -135,6 +135,16 @@ public class CreateSemanticsTest {
                                     put("ms_sql", "CREATE TABLE t1 ( a NVARCHAR(16) NULL )");
                                     put("oracle", "CREATE TABLE t1 ( a NVARCHAR2(16) NULL )");
                                     put("postgres", "CREATE TABLE t1 ( a VARCHAR(16) NULL )");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "create 't1' columns { add 'a' storing NVARCHAR(16) default_value 'foo' }",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("ms_sql", "CREATE TABLE t1 ( a NVARCHAR(16) DEFAULT 'foo' NOT NULL )");
+                                    put("oracle", "CREATE TABLE t1 ( a NVARCHAR2(16) DEFAULT 'foo' NOT NULL )");
+                                    put("postgres", "CREATE TABLE t1 ( a VARCHAR(16) DEFAULT 'foo' NOT NULL )");
                                 }}
                         )
                 },

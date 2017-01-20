@@ -23,16 +23,16 @@
 package com.vmware.upgrade.dsl.sql.util;
 
 /**
- * Interface to control an initial value for a column.
+ * Interface to specify a default value for a column.
  *
  * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */
-public interface InitialAware extends HasClosureMap {
+public interface DefaultAware extends HasClosureMap {
 
-    public Object setInitialValue(Object arg);
+    public Object setDefaultValue(Object arg);
 
-    public Object getInitialValue();
+    public Object getDefaultValue();
 
 }

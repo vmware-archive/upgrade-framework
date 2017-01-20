@@ -23,6 +23,8 @@
 package com.vmware.upgrade.dsl.sql.syntax
 
 import com.vmware.upgrade.dsl.sql.util.ClassUtil
+import com.vmware.upgrade.dsl.sql.util.DefaultAware
+import com.vmware.upgrade.dsl.sql.util.HasClosureMap
 import com.vmware.upgrade.dsl.sql.util.InitialAware
 import com.vmware.upgrade.dsl.sql.util.NullAware
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
@@ -60,14 +62,14 @@ public class ColumnType {
     }
 
     public static def NVARCHAR(int length) {
-        new NullableMapBasedSQLStatement([
+        new ModifiableMapBasedSQLStatement([
             oracle:'NVARCHAR2(' + length + ')',
             ms_sql:'NVARCHAR(' + length + ')',
             postgres:'VARCHAR(' + length + ')'])
     }
 
     public static def VARCHAR(int length) {
-        new NullableMapBasedSQLStatement([
+        new ModifiableMapBasedSQLStatement([
             oracle:'VARCHAR2(' + length + ')',
             ms_sql:'VARCHAR(' + length + ')',
             postgres:'VARCHAR(' + length + ')'])
@@ -78,43 +80,62 @@ public class ColumnType {
     }
 
     private enum Type implements DataType {
-        BOOL([oracle:'NUMBER(1,0) DEFAULT 0', ms_sql:'TINYINT DEFAULT 0', postgres:'BOOLEAN DEFAULT FALSE']),
-        DATE([oracle:'TIMESTAMP (6) DEFAULT SYSTIMESTAMP', ms_sql:'DATETIME DEFAULT GETDATE()', postgres:'TIMESTAMP (6) DEFAULT NOW()']),
+        BOOL([oracle:'NUMBER(1,0)', ms_sql:'TINYINT', postgres:'BOOLEAN'], [oracle:'0', ms_sql:'0', postgres:'FALSE']),
+        DATE([oracle:'TIMESTAMP (6)', ms_sql:'DATETIME', postgres:'TIMESTAMP (6)'], [oracle:'SYSTIMESTAMP', ms_sql:'GETDATE()', postgres:'NOW()']),
         INTEGER([oracle:'NUMBER(10,0)', ms_sql:'INT', postgres:'INT']),
         LONG([oracle:'NUMBER(19,0)', ms_sql:'BIGINT', postgres:'BIGINT'])
 
         private final Map ddl
+        private final Map defaultMap
 
         private Type(Map ddl) {
             this.ddl = ddl
         }
 
+        private Type(Map ddl, Map defaultMap) {
+            this.ddl = ddl
+            this.defaultMap = defaultMap
+        }
+
         @Override
         public SQLStatement sql() {
-            return new NullableMapBasedSQLStatement(ddl)
+            return new ModifiableMapBasedSQLStatement(ddl, defaultMap)
         }
     }
 
     /**
-     * Returns a {@link SQLStatement} that allows specifying columns as nullable.
+     * Returns a {@link SQLStatement} that allows modification of nullability, initial value, and
+     * default value.
      */
-    public static class NullableMapBasedSQLStatement implements InitialAware, NullAware, SQLStatement {
+    public static class ModifiableMapBasedSQLStatement implements DefaultAware, InitialAware, NullAware, SQLStatement {
         private boolean allowNulls = false
         private final SQLStatement sqlStatement
         private final Map<String, String> statementMap
 
         private Object initialValue = null
+        private Object defaultValue = null
+        private Object defaultDefaultValue = null
+
+        private Map<String, Closure<Object>> closureMap = getClosureMap(this)
 
         private static final String NOT_NULL = "NOT NULL"
         private static final String NULL = "NULL"
+        private static final String DEFAULT = "DEFAULT"
 
-        public NullableMapBasedSQLStatement(Map<String, String> statementMap) {
-            this(statementMap, false)
+        private static final String ALREADY_SPECIFIED = "'%s' has already been specified"
+
+        public ModifiableMapBasedSQLStatement(Map<String, String> statementMap) {
+            this(statementMap, null, false)
         }
 
-        public NullableMapBasedSQLStatement(Map<String, String> statementMap, boolean allowNulls) {
+        public ModifiableMapBasedSQLStatement(Map<String, String> statementMap, Object defaultValue) {
+            this(statementMap, defaultValue, false)
+        }
+
+        public ModifiableMapBasedSQLStatement(Map<String, String> statementMap, Object defaultValue, boolean allowNulls) {
             sqlStatement = SQLStatementFactory.create(statementMap)
             this.statementMap = statementMap
+            this.defaultDefaultValue = defaultValue
             this.allowNulls = allowNulls
         }
 
@@ -126,13 +147,11 @@ public class ColumnType {
          */
         @Override
         public Object makeNullable(def arg) {
-            if (allowNulls) {
-                throw new IllegalArgumentException("'allowing null' has already been specified")
-            }
+            checkNotAlreadySpecified(allowNulls, "allowing null")
 
             if (arg == null) {
                 this.allowNulls = true
-                return [ initial: { this.setInitialValue(it) } ]
+                return closureMap
             } else {
                 throw new IllegalArgumentException("expected null following 'allowing' but found '${arg}'")
             }
@@ -147,14 +166,19 @@ public class ColumnType {
         public String get(DatabaseType databaseType) {
             String sql = sqlStatement.get(databaseType)
             String nullConstraint = (allowNulls) ? NULL : NOT_NULL
-            return String.format("${sql} %s", nullConstraint)
+            String defaultConstraint = " "
+            Object dv = defaultValue ?: defaultDefaultValue
+            if (dv != null) {
+                SQLStatement defaultSQLStatement = SQLStatementFactory.create(dv)
+                defaultConstraint = String.format(" %s %s ", DEFAULT, defaultSQLStatement.get(databaseType))
+            }
+
+            return String.format("${sql}%s%s", defaultConstraint, nullConstraint)
         }
 
         @Override
         public Object setInitialValue(def arg) {
-            if (initialValue != null) {
-                throw new IllegalArgumentException("'initial' has already been specified")
-            }
+            checkNotAlreadySpecified(initialValue != null, "initial")
 
             if (arg != null) {
                 if (arg in String || arg in Number) {
@@ -165,7 +189,7 @@ public class ColumnType {
                     }
                 }
             }
-            return [ allowing: { this.makeNullable(it) } ]
+            return closureMap
         }
 
         @Override
@@ -174,13 +198,75 @@ public class ColumnType {
         }
 
         @Override
+        public Object setDefaultValue(Object arg) {
+            checkNotAlreadySpecified(defaultValue != null, (arg in RawSql) ? "default_sql" : "default_value")
+
+            if (arg == null && !allowNulls) {
+                throw new IllegalArgumentException(
+                    "Default cannot be null unless 'allowing null' was specified ('default_value null' may " +
+                    "be provided with 'allowing null' but is not necessary)")
+            }
+
+            if (arg != null) {
+                if (arg in String || arg in Number) {
+                    defaultValue = "'" + arg.toString() + "'"
+                } else if (arg in Map) {
+                    defaultValue = arg.collectEntries { k, v ->
+                        [(k): (v in String || v in Number) ? "'" + v + "'" : v]
+                    }
+                } else if (arg in RawSql) {
+                    defaultValue = arg.getSql()
+                }
+            }
+
+            return closureMap
+        }
+
+        @Override
+        public Object getDefaultValue() {
+            return defaultValue ?: defaultDefaultValue
+        }
+
+        @Override
         public NullAware makeCopy() {
-            return new NullableMapBasedSQLStatement(statementMap, allowNulls)
+            return new ModifiableMapBasedSQLStatement(statementMap, defaultValue, allowNulls)
         }
 
         @Override
         public NullAware makeNullableCopy() {
-            return new NullableMapBasedSQLStatement(statementMap, true)
+            return new ModifiableMapBasedSQLStatement(statementMap, defaultValue, true)
+        }
+
+        @Override
+        public Map<String,Closure<Object>> getClosureMap(HasClosureMap type) {
+            return Collections.unmodifiableMap([
+                allowing: { type.makeNullable(it) },
+                initial: { type.setInitialValue(it) },
+                default_value: { type.setDefaultValue(it) },
+                default_sql: { type.setDefaultValue(new RawSql(it)) }
+            ])
+        }
+
+        private void checkNotAlreadySpecified(boolean alreadySpecified, String keyword) {
+            if (alreadySpecified) {
+                throw new IllegalArgumentException(String.format(ALREADY_SPECIFIED, keyword))
+            }
+        }
+
+        private static class RawSql {
+            private def sql
+
+            public RawSql(def sql) {
+                boolean valid = sql in String || sql in Map || sql == null
+                if (!valid) {
+                    throw new IllegalArgumentException("Expected a String or Map of Strings following 'default_sql'")
+                }
+                this.sql = sql
+            }
+
+            public def getSql() {
+                return sql
+            }
         }
     }
 }

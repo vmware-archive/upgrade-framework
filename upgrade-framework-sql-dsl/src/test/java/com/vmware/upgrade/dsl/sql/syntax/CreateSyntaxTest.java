@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -51,6 +51,9 @@ public class CreateSyntaxTest {
                 },
                 new Object[] {
                         "create 't1' columns { add 'a' storing BOOL allowing null }"
+                },
+                new Object[] {
+                        "create 't1' columns { add 'a' storing INTEGER default_value 1 }"
                 },
                 new Object[] {
                         "create 'virtual_machine_record' columns {\n" +

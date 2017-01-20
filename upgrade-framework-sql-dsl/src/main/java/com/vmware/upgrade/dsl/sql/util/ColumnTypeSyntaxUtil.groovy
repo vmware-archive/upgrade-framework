@@ -60,22 +60,10 @@ class ColumnTypeSyntaxUtil {
      * Returns a closure with additional column syntax for the appropriate type.
      *
      * @param type
-     * @return {@link Closure}, or the passed {@code type} if it is neither {@link NullAware}
-     * or {@link InitialAware}
+     * @return {@link Closure}, or the passed {@code type} if it is not a {@link HasClosureMap}
      */
     static def getAdditionalSyntax(type) {
-        def allowing = { type.makeNullable(it) }
-        def initial = { type.setInitialValue(it) }
-
-        if (type in NullAware && type in InitialAware) {
-            return [ allowing: allowing, initial: initial ]
-        } else if (type in NullAware) {
-            return [ allowing: allowing ]
-        } else if (type in InitialAware) {
-            return [ initial: initial ]
-        }
-
-        return type
+        return (type in HasClosureMap) ? type.getClosureMap(type) : type
     }
 
 }

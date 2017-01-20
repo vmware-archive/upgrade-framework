@@ -22,17 +22,19 @@
 
 package com.vmware.upgrade.dsl.sql.util;
 
+import groovy.lang.Closure;
+
+import java.util.Map;
+
 /**
- * Interface to control an initial value for a column.
+ * Interface to indicate and provide access to a mapping of keywords to closures.
  *
  * @author Matthew Frost mfrost@vmware.com
  * @version 1.0
  * @since 1.0
  */
-public interface InitialAware extends HasClosureMap {
+public interface HasClosureMap {
 
-    public Object setInitialValue(Object arg);
-
-    public Object getInitialValue();
+    public Map<String, Closure<Object>> getClosureMap(HasClosureMap type);
 
 }

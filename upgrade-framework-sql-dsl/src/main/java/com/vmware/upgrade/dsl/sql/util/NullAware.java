@@ -29,7 +29,7 @@ package com.vmware.upgrade.dsl.sql.util;
  * @version 1.0
  * @since 1.0
  */
-public interface NullAware {
+public interface NullAware extends HasClosureMap {
     /**
      * Set the allowing of null values.
      *
