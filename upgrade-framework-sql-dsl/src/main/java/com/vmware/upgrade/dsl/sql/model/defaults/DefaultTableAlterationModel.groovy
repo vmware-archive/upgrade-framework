@@ -24,6 +24,7 @@ package com.vmware.upgrade.dsl.sql.model.defaults
 
 import com.vmware.upgrade.dsl.sql.model.ConstraintModel
 import com.vmware.upgrade.dsl.sql.model.TableAlterationModel
+import com.vmware.upgrade.dsl.sql.util.DefaultAware
 import com.vmware.upgrade.dsl.sql.util.InitialAware
 import com.vmware.upgrade.dsl.sql.util.NullAware
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
@@ -286,9 +287,15 @@ END
         Transformation.TransformationType transformationAlterationType
         switch (alterationType) {
         case AlterationType.ADD_COLUMN:
-            transformationAlterationType = (columnType in NullAware && columnType.isNullable())
-                ? Transformation.TransformationType.ADD_COLUMN_NULL
-                : Transformation.TransformationType.ADD_COLUMN_NOT_NULL
+            if (columnType in NullAware && columnType.isNullable()) {
+                transformationAlterationType = Transformation.TransformationType.ADD_COLUMN_NULL
+            } else if (columnType in DefaultAware && columnType.getDefaultValue() != null) {
+                transformationAlterationType = Transformation.TransformationType.ADD_COLUMN_NOT_NULL_DEFAULT
+            } else if (columnType in InitialAware && columnType.getInitialValue() != null) {
+                transformationAlterationType = Transformation.TransformationType.ADD_COLUMN_NOT_NULL_INITIAL
+            } else {
+                transformationAlterationType = Transformation.TransformationType.ADD_COLUMN_NOT_NULL
+            }
             break
         case AlterationType.DROP_COLUMN:
             transformationAlterationType = Transformation.TransformationType.DROP_COLUMN

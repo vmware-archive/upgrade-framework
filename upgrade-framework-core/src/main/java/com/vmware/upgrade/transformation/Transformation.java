@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2016 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2016-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -87,6 +87,8 @@ public class Transformation {
 
     public enum TransformationType {
         ADD_COLUMN_NOT_NULL,
+        ADD_COLUMN_NOT_NULL_DEFAULT,
+        ADD_COLUMN_NOT_NULL_INITIAL,
         ADD_COLUMN_NULL,
         DROP_COLUMN,
         RENAME_COLUMN,
