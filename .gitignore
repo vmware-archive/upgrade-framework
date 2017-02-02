@@ -13,6 +13,9 @@
 *.ipr
 *.iws
 
+# Visual Studio Code
+.vscode/
+
 # Directories created during the build process
 target/
 test-output/
