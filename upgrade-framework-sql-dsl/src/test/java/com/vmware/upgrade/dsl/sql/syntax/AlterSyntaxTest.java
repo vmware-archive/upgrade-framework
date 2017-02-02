@@ -48,17 +48,17 @@ public class AlterSyntaxTest {
                 new Object[] { "alter 't' add 'a' storing NVARCHAR(16)" },
                 new Object[] { "alter 't' add 'a' storing LONG" },
                 new Object[] { "alter 't' add 'a' storing BOOL allowing null" },
-                new Object[] { "alter 't' add 'a' storing LONG initial 12345" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i'" },
+                new Object[] { "alter 't' add 'a' storing LONG initial_value 12345" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial_value 'i'" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j'" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'i'" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial_value 'i'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial_value 'i' allowing null" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null default_value 'j'" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null default_value null" },
                 new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j' allowing null" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'i' default_value 'j'" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial 'i' default_value 'j' allowing null" },
-                new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j' initial 'i' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) allowing null initial_value 'i' default_value 'j'" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) initial_value 'i' default_value 'j' allowing null" },
+                new Object[] { "alter 't' add 'a' storing VARCHAR(16) default_value 'j' initial_value 'i' allowing null" },
                 new Object[] { "alter oracle: 't', ms_sql: 'x', postgres: 'p' add 'a' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'a1', ms_sql: 'a2', postgres: 'a3' storing 'char(1)'" },
                 new Object[] { "alter 't' add oracle: 'ANALYZE', ms_sql: 'ACCESS', postgres: 'ADD' storing 'char(1)'" },
@@ -130,19 +130,19 @@ public class AlterSyntaxTest {
                         "'allowing null' has already been specified"
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing INTEGER allowing null initial 0 allowing null",
+                        "alter 't' add 'a' storing INTEGER allowing null initial_value 0 allowing null",
                         IllegalArgumentException.class,
                         "'allowing null' has already been specified"
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing INTEGER initial 0 initial 0",
+                        "alter 't' add 'a' storing INTEGER initial_value 0 initial_value 0",
                         IllegalArgumentException.class,
-                        "'initial' has already been specified"
+                        "'initial_value' has already been specified"
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing INTEGER initial 0 allowing null initial 0",
+                        "alter 't' add 'a' storing INTEGER initial_value 0 allowing null initial_value 0",
                         IllegalArgumentException.class,
-                        "'initial' has already been specified"
+                        "'initial_value' has already been specified"
                 },
                 new Object[] {
                         "alter 't' add 'a' storing INTEGER default_value 0 default_value 0",

@@ -178,7 +178,7 @@ public class ColumnType {
 
         @Override
         public Object setInitialValue(def arg) {
-            checkNotAlreadySpecified(initialValue != null, "initial")
+            checkNotAlreadySpecified(initialValue != null, "initial_value")
 
             if (arg != null) {
                 if (arg in String || arg in Number) {
@@ -241,7 +241,7 @@ public class ColumnType {
         public Map<String,Closure<Object>> getClosureMap(HasClosureMap type) {
             return Collections.unmodifiableMap([
                 allowing: { type.makeNullable(it) },
-                initial: { type.setInitialValue(it) },
+                initial_value: { type.setInitialValue(it) },
                 default_value: { type.setDefaultValue(it) },
                 default_sql: { type.setDefaultValue(new RawSql(it)) }
             ])

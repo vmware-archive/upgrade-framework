@@ -58,7 +58,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing BOOL allowing null initial postgres: 'true', default: '1'",
+                        "alter 't' add 'a' storing BOOL allowing null initial_value postgres: 'true', default: '1'",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -156,7 +156,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing VARCHAR(16) initial 'foobar'",
+                        "alter 't' add 'a' storing VARCHAR(16) initial_value 'foobar'",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -184,7 +184,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing VARCHAR(16) initial ms_sql: 'foo', default: 'bar'",
+                        "alter 't' add 'a' storing VARCHAR(16) initial_value ms_sql: 'foo', default: 'bar'",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -212,7 +212,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing VARCHAR(16) allowing null initial 'foobar'",
+                        "alter 't' add 'a' storing VARCHAR(16) allowing null initial_value 'foobar'",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -240,7 +240,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing VARCHAR(16) initial 'foobar' allowing null",
+                        "alter 't' add 'a' storing VARCHAR(16) initial_value 'foobar' allowing null",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -268,7 +268,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing INTEGER initial 1701",
+                        "alter 't' add 'a' storing INTEGER initial_value 1701",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
@@ -296,7 +296,7 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing INTEGER initial 1 default_value 2 allowing null",
+                        "alter 't' add 'a' storing INTEGER initial_value 1 default_value 2 allowing null",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
                                     put(
