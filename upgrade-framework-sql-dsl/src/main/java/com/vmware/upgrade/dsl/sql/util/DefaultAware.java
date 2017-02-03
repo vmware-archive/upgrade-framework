@@ -35,4 +35,6 @@ public interface DefaultAware extends HasClosureMap {
 
     public Object getDefaultValue();
 
+    public DefaultAware makeNoDefaultCopy();
+
 }

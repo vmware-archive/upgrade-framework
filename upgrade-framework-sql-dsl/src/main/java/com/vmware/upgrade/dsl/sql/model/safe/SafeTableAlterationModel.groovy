@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,9 +23,9 @@
 package com.vmware.upgrade.dsl.sql.model.safe
 
 import com.vmware.upgrade.dsl.sql.model.defaults.DefaultTableAlterationModel
+import com.vmware.upgrade.dsl.sql.model.defaults.DefaultTableAlterationModel.AlterationType
 import com.vmware.upgrade.dsl.sql.util.SQLStatementFactory
 import com.vmware.upgrade.sql.DatabaseType
-import com.vmware.upgrade.sql.SQLStatement
 
 /**
  * {@link SafeTableAlterationModel} extends the logic of {@link DefaultTableAlterationModel} by
@@ -57,6 +57,7 @@ class SafeTableAlterationModel extends DefaultTableAlterationModel {
     public String get(DatabaseType databaseType) {
         switch (alterationType) {
             case AlterationType.ADD_COLUMN:
+            case AlterationType.ADD_COLUMN_WITH_INITIAL:
             case AlterationType.ADD_OR_DROP_CONSTRAINT:
                 return SQLStatementFactory.format(
                     SafeSQLStatementWrapper.TABLE_EXISTS.get(databaseType),

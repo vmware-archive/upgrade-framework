@@ -167,7 +167,7 @@ public class ColumnType {
             String sql = sqlStatement.get(databaseType)
             String nullConstraint = (allowNulls) ? NULL : NOT_NULL
             String defaultConstraint = " "
-            Object dv = defaultValue ?: defaultDefaultValue
+            Object dv = getDefaultValue()
             if (dv != null) {
                 SQLStatement defaultSQLStatement = SQLStatementFactory.create(dv)
                 defaultConstraint = String.format(" %s %s ", DEFAULT, defaultSQLStatement.get(databaseType))
@@ -229,12 +229,17 @@ public class ColumnType {
 
         @Override
         public NullAware makeCopy() {
-            return new ModifiableMapBasedSQLStatement(statementMap, defaultValue, allowNulls)
+            return new ModifiableMapBasedSQLStatement(statementMap, getDefaultValue(), allowNulls)
         }
 
         @Override
         public NullAware makeNullableCopy() {
-            return new ModifiableMapBasedSQLStatement(statementMap, defaultValue, true)
+            return new ModifiableMapBasedSQLStatement(statementMap, getDefaultValue(), true)
+        }
+
+        @Override
+        public DefaultAware makeNoDefaultCopy() {
+            return new ModifiableMapBasedSQLStatement(statementMap, null, allowNulls)
         }
 
         @Override

@@ -64,24 +64,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a TINYINT DEFAULT 0 NULL\n" +
-                                            "UPDATE t SET a = '1'\n" +
+                                            "ALTER TABLE t ADD a TINYINT DEFAULT 0 NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''1''');\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a NUMBER(1,0) DEFAULT 0 NULL\n" +
-                                            "UPDATE t SET a = '1'\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a NUMBER(1,0) DEFAULT 0 NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = '1']';\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a BOOLEAN DEFAULT FALSE NULL\n" +
-                                            "UPDATE t SET a = 'true'\n" +
-                                            "\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a BOOLEAN DEFAULT FALSE NULL;\n" +
+                                            "UPDATE t SET a = 'true';\n" +
+                                            ";\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -162,24 +162,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''foobar''');\n" +
+                                            "EXEC('ALTER TABLE t ALTER COLUMN a VARCHAR(16) NOT NULL');\n" +
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a VARCHAR2(16) NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = 'foobar']';\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t MODIFY a VARCHAR2(16) NOT NULL]';\n" +
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "UPDATE t SET a = 'foobar';\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL;\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -190,24 +190,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foo'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''foo''');\n" +
+                                            "EXEC('ALTER TABLE t ALTER COLUMN a VARCHAR(16) NOT NULL');\n" +
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
-                                            "UPDATE t SET a = 'bar'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a VARCHAR2(16) NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = 'bar']';\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t MODIFY a VARCHAR2(16) NOT NULL]';\n" +
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'bar'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "UPDATE t SET a = 'bar';\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL;\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -218,24 +218,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''foobar''');\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a VARCHAR2(16) NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = 'foobar']';\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
-                                            "\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "UPDATE t SET a = 'foobar';\n" +
+                                            ";\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -246,24 +246,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''foobar''');\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR2(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a VARCHAR2(16) NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = 'foobar']';\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a VARCHAR(16) NULL\n" +
-                                            "UPDATE t SET a = 'foobar'\n" +
-                                            "\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a VARCHAR(16) NULL;\n" +
+                                            "UPDATE t SET a = 'foobar';\n" +
+                                            ";\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -274,24 +274,52 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a INT NULL\n" +
-                                            "UPDATE t SET a = '1701'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "ALTER TABLE t ADD a INT NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''1701''');\n" +
+                                            "EXEC('ALTER TABLE t ALTER COLUMN a INT NOT NULL');\n" +
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a NUMBER(10,0) NULL\n" +
-                                            "UPDATE t SET a = '1701'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a  NOT NULL\n" +
-                                            "END\n");
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a NUMBER(10,0) NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = '1701']';\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t MODIFY a NUMBER(10,0) NOT NULL]';\n" +
+                                            "END;\n");
                                     put(
                                             "postgres",
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a INT NULL;\n" +
+                                            "UPDATE t SET a = '1701';\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL;\n" +
+                                            "END;\n");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing INTEGER initial_value 1 default_value 2",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a INT NULL\n" +
-                                            "UPDATE t SET a = '1701'\n" +
-                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL\n" +
-                                            "END\n");
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''1''');\n" +
+                                            "EXEC('ALTER TABLE t ALTER COLUMN a INT NOT NULL');\n" +
+                                            "END;\n");
+                                    put(
+                                            "oracle",
+                                            "\nBEGIN\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '2' NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = '1']';\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t MODIFY a NUMBER(10,0) DEFAULT '2' NOT NULL]';\n" +
+                                            "END;\n");
+                                    put(
+                                            "postgres",
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL;\n" +
+                                            "UPDATE t SET a = '1';\n" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL;\n" +
+                                            "END;\n");
                                 }}
                         )
                 },
@@ -302,24 +330,24 @@ public class AlterSemanticsTest {
                                     put(
                                             "ms_sql",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL\n" +
-                                            "UPDATE t SET a = '1'\n" +
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL;\n" +
+                                            "EXEC('UPDATE t SET a = ''1''');\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "oracle",
                                             "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '2' NULL\n" +
-                                            "UPDATE t SET a = '1'\n" +
+                                            "EXECUTE IMMEDIATE q'[ALTER TABLE t ADD a NUMBER(10,0) DEFAULT '2' NULL]';\n" +
+                                            "EXECUTE IMMEDIATE q'[UPDATE t SET a = '1']';\n" +
                                             "\n" +
-                                            "END\n");
+                                            "END;\n");
                                     put(
                                             "postgres",
-                                            "\nBEGIN\n" +
-                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL\n" +
-                                            "UPDATE t SET a = '1'\n" +
-                                            "\n" +
-                                            "END\n");
+                                            "\nBEGIN;\n" +
+                                            "ALTER TABLE t ADD a INT DEFAULT '2' NULL;\n" +
+                                            "UPDATE t SET a = '1';\n" +
+                                            ";\n" +
+                                            "END;\n");
                                 }}
                         )
                 },

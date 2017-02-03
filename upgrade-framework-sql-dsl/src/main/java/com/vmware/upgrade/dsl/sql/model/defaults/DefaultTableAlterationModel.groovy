@@ -45,6 +45,7 @@ import com.vmware.upgrade.transformation.Transformation
  */
 public class DefaultTableAlterationModel implements TableAlterationModel {
     private static final String DROP_CONSTRAINT_SQL = "ALTER TABLE %s DROP COLUMN %s"
+    private static final String ADD_COLUMN_SQL = "ALTER TABLE %1\$s ADD %2\$s %3\$s"
 
     /*In MS_SQL all constraints must be removed before dropping a column.*/
     private static final String MS_DROP_CONSTRAINT_SQL = """DECLARE @DefaultConstraintName nvarchar(200)
@@ -67,7 +68,7 @@ public class DefaultTableAlterationModel implements TableAlterationModel {
 
     public static enum AlterationType {
         ADD_COLUMN(
-            SQLStatementFactory.create("ALTER TABLE %s ADD %s %s")
+            SQLStatementFactory.create(ADD_COLUMN_SQL)
         ),
         DROP_COLUMN(
             SQLStatementFactory.create(
@@ -114,13 +115,28 @@ END;
             SQLStatementFactory.create("ALTER TABLE %s %s")
         ),
         ADD_COLUMN_WITH_INITIAL(
-            SQLStatementFactory.create("""
+            SQLStatementFactory.create([
+                ms_sql: """
 BEGIN
-ALTER TABLE %1\$s ADD %2\$s %3\$s
-UPDATE %1\$s SET %2\$s = %4\$s
+${ADD_COLUMN_SQL};
+EXEC('UPDATE %1\$s SET %2\$s = '%4\$s'');
 %5\$s
-END
-""")
+END;
+""",
+                oracle: """
+BEGIN
+EXECUTE IMMEDIATE q'[${ADD_COLUMN_SQL}]';
+EXECUTE IMMEDIATE q'[UPDATE %1\$s SET %2\$s = %4\$s]';
+%5\$s
+END;
+""",
+                postgres: """
+BEGIN;
+${ADD_COLUMN_SQL};
+UPDATE %1\$s SET %2\$s = %4\$s;
+%5\$s;
+END;
+"""])
         )
 
         private SQLStatement sql
@@ -192,13 +208,35 @@ END
     private String getAddColumnWithInitial(DatabaseType databaseType) {
         boolean isNullable = (columnType in NullAware) ? columnType.isNullable() : true
         Object nullableType = (isNullable) ? columnType : columnType.makeNullableCopy()
-        String set = (databaseType.toString().equalsIgnoreCase("POSTGRES")) ? "SET" : ""
-        String setNullability =
-            (isNullable) ? "" : "ALTER TABLE ${tableName} ALTER COLUMN ${columnName} ${set} NOT NULL"
+
+        String setNullability = ""
+        /* Setting nullability can't be done in the ADD_COLUMN_WITH_INITIAL map because we
+         * can't pass empty execute statements (i.e. when the alter isn't needed). */
+        if (!isNullable) {
+            String setNotNull = SQLStatementFactory.create([
+                ms_sql: "ALTER TABLE ${tableName} ALTER COLUMN ${columnName} ${escapeSqlServer(columnType.makeNoDefaultCopy().get(databaseType))}",
+                oracle: "ALTER TABLE ${tableName} MODIFY ${columnName} ${columnType.get(databaseType)}",
+                postgres: "ALTER TABLE ${tableName} ALTER COLUMN ${columnName} SET NOT NULL"]).get(databaseType)
+            setNullability = SQLStatementFactory.create([
+                ms_sql: "EXEC('${setNotNull}');",
+                oracle: "EXECUTE IMMEDIATE q'[${setNotNull}]';",
+                postgres: setNotNull]).get(databaseType)
+        }
+
         Object initialValue = columnType.getInitialValue()
 
         return SQLStatementFactory.format(AlterationType.ADD_COLUMN_WITH_INITIAL.getSql(databaseType),
             databaseType, tableName, columnName, nullableType, initialValue, setNullability)
+    }
+
+    /**
+     * SQL Server doesn't offer an option like Oracle to alter the delimiters for a string literal so
+     * we need to escape any single quotes in the SQL string passed to SQL Server EXEC.
+     *
+     * @return a {@link String} copy of {@code sql} that has all single quotes escaped
+     */
+    private String escapeSqlServer(String sql) {
+        return sql.replaceAll("'", "''")
     }
 
     @Override

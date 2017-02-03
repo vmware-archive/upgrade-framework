@@ -1,5 +1,5 @@
 /* ****************************************************************************
- * Copyright (c) 2012-2014 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2017 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,6 +21,8 @@
  * ****************************************************************************/
 
 package com.vmware.upgrade.dsl.sql.util;
+
+import groovy.lang.GString;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -144,8 +146,12 @@ public class SQLStatementFactory  {
         public CompositeSQLStatement(final Object... parts) {
             factories = new ArrayList<SQLStatement>();
 
-            for (final Object part : parts) {
+            for (Object part : parts) {
                 final SQLStatement statement;
+
+                if (part instanceof GString) {
+                    part = part.toString();
+                }
 
                 if (part instanceof String) {
                     statement = new ConstantSQLStatement((String) part);
@@ -156,7 +162,7 @@ public class SQLStatementFactory  {
                     final Map<String, String> typedMap = new HashMap<String, String>(map.size());
                     for (final Map.Entry<?, ?> entry : map.entrySet()) {
                         final Object key = entry.getKey();
-                        final Object value = entry.getValue();
+                        final Object value = (entry.getValue() instanceof GString) ? entry.getValue().toString() : entry.getValue();
 
                         if (!(key instanceof String)) {
                             throw new IllegalArgumentException("Parts contains map with key of unsupported type: " + key.getClass());
