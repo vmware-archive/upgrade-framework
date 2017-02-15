@@ -47,6 +47,8 @@ public class DefaultTableAlterationModel implements TableAlterationModel {
     private static final String DROP_CONSTRAINT_SQL = "ALTER TABLE %s DROP COLUMN %s"
     private static final String ADD_COLUMN_SQL = "ALTER TABLE %1\$s ADD %2\$s %3\$s"
 
+    private static final String MS_RETYPE_COLUMN_SQL = "ALTER TABLE %s ALTER COLUMN %s %s"
+
     /*In MS_SQL all constraints must be removed before dropping a column.*/
     private static final String MS_DROP_CONSTRAINT_SQL = """DECLARE @DefaultConstraintName nvarchar(200)
         SELECT @DefaultConstraintName = Name FROM sys.default_constraints
@@ -90,7 +92,7 @@ public class DefaultTableAlterationModel implements TableAlterationModel {
         RETYPE_COLUMN(
             SQLStatementFactory.create(
                 [
-                    ms_sql: "ALTER TABLE %s ALTER COLUMN %s %s",
+                    ms_sql: MS_RETYPE_COLUMN_SQL,
                     oracle: """
 DECLARE
 l_nullable VARCHAR(1);
@@ -300,12 +302,27 @@ END;
                         simpleColumnType,
                         nullability)
                 } else {
+                    String sql = alterationType.getSql(databaseType)
+                    def col = columnType
+                    if (columnType in DefaultAware && columnType.getDefaultValue() != null) {
+                        def defaultValue = (columnType.getDefaultValue() in Map)
+                            ? columnType.getDefaultValue().get("ms_sql") : columnType.getDefaultValue()
+                        String dropDefault = String.format(MS_DROP_CONSTRAINT_SQL, tableName, columnName)
+                        sql = """
+BEGIN
+${dropDefault};
+${MS_RETYPE_COLUMN_SQL};
+ALTER TABLE ${tableName} ADD DEFAULT '${defaultValue}' FOR ${columnName};
+END;
+"""
+                        col = columnType.makeNoDefaultCopy()
+                    }
                     return SQLStatementFactory.format(
-                        alterationType.getSql(databaseType),
+                        sql,
                         databaseType,
                         tableName,
                         columnName,
-                        columnType)
+                        col)
                 }
             case AlterationType.ADD_OR_DROP_CONSTRAINT:
                 tableName = SQLStatementFactory.create(tableName).get(databaseType)
