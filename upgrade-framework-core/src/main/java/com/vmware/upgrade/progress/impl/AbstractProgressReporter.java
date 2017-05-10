@@ -30,8 +30,6 @@ import com.vmware.upgrade.progress.ExecutionState;
 import com.vmware.upgrade.progress.ProgressReport;
 import com.vmware.upgrade.progress.ProgressReporter;
 
-import org.apache.commons.lang.NullArgumentException;
-
 /**
  * An abstract implementation of a {@link ProgressReporter} which handles management of listeners
  *
@@ -54,7 +52,7 @@ public abstract class AbstractProgressReporter implements ProgressReporter {
     @Override
     public final boolean addListener(final ProgressListener progressListener) {
         if (progressListener == null) {
-            throw new NullArgumentException("progressListener");
+            throw new NullPointerException("progressListener");
         }
 
         return progressListeners.add(progressListener);
@@ -63,7 +61,7 @@ public abstract class AbstractProgressReporter implements ProgressReporter {
     @Override
     public final boolean removeListener(final ProgressListener progressListener) {
         if (progressListener == null) {
-            throw new NullArgumentException("progressListener");
+            throw new NullPointerException("progressListener");
         }
 
         return progressListeners.remove(progressListener);

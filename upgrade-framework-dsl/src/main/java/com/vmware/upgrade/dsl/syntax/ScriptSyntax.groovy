@@ -33,7 +33,7 @@ import com.vmware.upgrade.factory.CompositeUpgradeDefinitionFactory
 import com.vmware.upgrade.factory.GraphUpgradeDefinitionFactory
 import com.vmware.upgrade.factory.UpgradeDefinitionFactory
 
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang3.StringUtils
 
 /**
  * This class handles top-level loading of a script and handling of script-level

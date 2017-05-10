@@ -27,7 +27,7 @@
         <groupIdDir>com/vmware/vcloud/</groupIdDir>
 
         <commons.collections.version>3.2.2</commons.collections.version>
-        <commons.lang.version>2.6</commons.lang.version>
+        <commons.lang3.version>3.4</commons.lang3.version>
         <commons.math.version>1.2</commons.math.version>
         <easymock.version>3.1</easymock.version>
         <groovy.eclipse.batch.version>2.4.3-01</groovy.eclipse.batch.version>
@@ -48,9 +48,9 @@
             </dependency>
 
             <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons.lang.version}</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
             </dependency>
 
             <dependency>

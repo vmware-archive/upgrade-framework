@@ -33,7 +33,7 @@ import com.vmware.upgrade.sql.DatabasePersistenceContext;
 import com.vmware.upgrade.sql.SQLStatement;
 import com.vmware.upgrade.task.AbstractSimpleTask;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Task that encapsulates a raw statement {@link String} or {@link SQLStatement} to be executed at

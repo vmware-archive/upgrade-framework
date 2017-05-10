@@ -25,7 +25,7 @@ package com.vmware.upgrade.dsl.sql.syntax;
 import com.vmware.upgrade.TestGroups;
 import com.vmware.upgrade.dsl.model.UpgradeDefinitionModel;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

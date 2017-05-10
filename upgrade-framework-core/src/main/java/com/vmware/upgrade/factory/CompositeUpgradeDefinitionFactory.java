@@ -38,7 +38,7 @@ import com.vmware.upgrade.UpgradeDefinition;
 import com.vmware.upgrade.sequencing.Version;
 import com.vmware.upgrade.task.SerialAggregateTask;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A factory which creates an {@link UpgradeDefinition} encapsulating the

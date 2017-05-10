@@ -24,8 +24,6 @@ package com.vmware.upgrade.progress;
 
 import java.util.EventListener;
 
-import org.apache.commons.lang.NullArgumentException;
-
 /**
  * A ProgressReporter is an object which provides progress information about its execution.
  *
@@ -64,7 +62,7 @@ public interface ProgressReporter {
      * @param progressListener
      *          The listener to register
      * @return true if {@link ProgressListener} was added; false if it was not
-     * @throws NullArgumentException
+     * @throws NullPointerException
      *          if {@code progressListener} is {@code null}
      */
     boolean addListener(final ProgressListener progressListener);
@@ -81,7 +79,7 @@ public interface ProgressReporter {
      * @param progressListener
      *          The listener to remove
      * @return true if the {@link ProgressListener} was removed; false if it was not.
-     * @throws NullArgumentException
+     * @throws NullPointerException
      *          if {@code progressListener} is {@code null}
      */
     boolean removeListener(final ProgressListener progressListener);
