@@ -109,6 +109,7 @@ BEGIN
 END;
 """,
                     postgres: "ALTER TABLE %1\$s ALTER COLUMN %2\$s TYPE %3\$s;" +
+                              "%5\$s" +
                               "ALTER TABLE %1\$s ALTER COLUMN %2\$s %4\$s NOT NULL"
                 ]
             )
@@ -293,6 +294,14 @@ END;
                 } else if (databaseType.toString().equalsIgnoreCase("POSTGRES")) {
                     simpleColumnType = evaluatedColumnType.replaceAll("(?i)\\s?(NOT\\s)?NULL", "")
                     String nullability = (nullable) ? "DROP" : "SET"
+                    String defaultValueSql = ""
+
+                    if (columnType in DefaultAware && columnType.getDefaultValue() != null) {
+                        def defaultValue = (columnType.getDefaultValue() in Map)
+                            ? columnType.getDefaultValue().get("postgres") : columnType.getDefaultValue()
+                        defaultValueSql = "ALTER TABLE ${tableName} ALTER COLUMN ${columnName} SET DEFAULT ${defaultValue};"
+                        simpleColumnType = simpleColumnType.replaceAll("(?i)\\s?DEFAULT.*", "")
+                    }
 
                     return SQLStatementFactory.format(
                         alterationType.getSql(databaseType),
@@ -300,7 +309,8 @@ END;
                         tableName,
                         columnName,
                         simpleColumnType,
-                        nullability)
+                        nullability,
+                        defaultValueSql)
                 } else {
                     String sql = alterationType.getSql(databaseType)
                     def col = columnType

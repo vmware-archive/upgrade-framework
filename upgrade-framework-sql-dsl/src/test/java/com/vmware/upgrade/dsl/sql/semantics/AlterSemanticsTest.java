@@ -580,6 +580,59 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
+                        "alter 't' retype 'a' to INTEGER default_value 1",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put(
+                                            "ms_sql",
+                                            "\nBEGIN\n" +
+                                            "DECLARE @DefaultConstraintName nvarchar(200)\n" +
+                                            "        SELECT @DefaultConstraintName = Name FROM sys.default_constraints\n" +
+                                            "        WHERE PARENT_OBJECT_ID = OBJECT_ID('t')\n" +
+                                            "        AND PARENT_COLUMN_ID = (SELECT column_id FROM sys.columns\n" +
+                                            "        WHERE NAME = N'a'\n" +
+                                            "        AND object_id = OBJECT_ID(N't'))\n" +
+                                            "        IF @DefaultConstraintName IS NOT NULL\n" +
+                                            "        EXEC('ALTER TABLE t DROP CONSTRAINT ' + @DefaultConstraintName)\n" +
+                                            "        WHILE 1=1\n" +
+                                            "        BEGIN\n" +
+                                            "        DECLARE @ConstraintName nvarchar(200)\n" +
+                                            "        SET @ConstraintName = (SELECT TOP 1 constraint_name FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE\n" +
+                                            "        WHERE TABLE_NAME='t' AND COLUMN_NAME='a')\n" +
+                                            "        IF @ConstraintName IS NULL BREAK\n" +
+                                            "        EXEC('ALTER TABLE t DROP CONSTRAINT ' + @ConstraintName)\n" +
+                                            "        END\n" +
+                                            "        ;\n" +
+                                            "ALTER TABLE t ALTER COLUMN a INT NOT NULL;\n" +
+                                            "ALTER TABLE t ADD DEFAULT ''1'' FOR a;\n" +
+                                            "END;\n"
+                                    );
+                                    put(
+                                            "oracle",
+                                            "\nDECLARE\n" +
+                                            "l_nullable VARCHAR(1);\n" +
+                                            "\n" +
+                                            "BEGIN\n" +
+                                            "  SELECT nullable INTO l_nullable FROM user_tab_columns WHERE table_name = UPPER('t') AND column_name = UPPER('a');\n" +
+                                            "\n" +
+                                            "  IF l_nullable = 'N' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0) DEFAULT '1'  )';\n" +
+                                            "  END IF;\n" +
+                                            "  IF l_nullable = 'Y' THEN\n" +
+                                            "    EXECUTE IMMEDIATE 'ALTER TABLE t MODIFY (a NUMBER(10,0) DEFAULT '1'  NOT NULL)';\n" +
+                                            "  END IF;\n" +
+                                            "END;\n"
+                                    );
+                                    put(
+                                            "postgres",
+                                            "ALTER TABLE t ALTER COLUMN a TYPE INT;" +
+                                            "ALTER TABLE t ALTER COLUMN a SET DEFAULT '1';" +
+                                            "ALTER TABLE t ALTER COLUMN a SET NOT NULL"
+                                    );
+                                }}
+                        )
+                },
+                new Object[] {
                         "alter 't' retype 'a' to BOOL",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
@@ -625,7 +678,8 @@ public class AlterSemanticsTest {
                                     );
                                     put(
                                             "postgres",
-                                            "ALTER TABLE t ALTER COLUMN a TYPE BOOLEAN DEFAULT FALSE;" +
+                                            "ALTER TABLE t ALTER COLUMN a TYPE BOOLEAN;" +
+                                            "ALTER TABLE t ALTER COLUMN a SET DEFAULT FALSE;" +
                                             "ALTER TABLE t ALTER COLUMN a SET NOT NULL"
                                     );
                                 }}
