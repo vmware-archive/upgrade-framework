@@ -83,7 +83,9 @@ public class ColumnType {
         BOOL([oracle:'NUMBER(1,0)', ms_sql:'TINYINT', postgres:'BOOLEAN'], [oracle:'0', ms_sql:'0', postgres:'FALSE']),
         DATE([oracle:'TIMESTAMP (6)', ms_sql:'DATETIME', postgres:'TIMESTAMP (6)'], [oracle:'SYSTIMESTAMP', ms_sql:'GETDATE()', postgres:'NOW()']),
         INTEGER([oracle:'NUMBER(10,0)', ms_sql:'INT', postgres:'INT']),
-        LONG([oracle:'NUMBER(19,0)', ms_sql:'BIGINT', postgres:'BIGINT'])
+        LONG([oracle:'NUMBER(19,0)', ms_sql:'BIGINT', postgres:'BIGINT']),
+        BLOB([oracle:'BLOB', ms_sql:'VARBINARY(MAX)', postgres:'BYTEA']),
+        CLOB([oracle:'NCLOB', ms_sql:'NVARCHAR(MAX)', postgres:'TEXT'])
 
         private final Map ddl
         private final Map defaultMap

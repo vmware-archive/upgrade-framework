@@ -41,6 +41,8 @@ public class AlterSyntaxTest {
     public Object[][] validAlterStatements() {
         return new Object[][] {
                 new Object[] { "alter 't' add 'a' storing 'char(1)'" },
+                new Object[] { "alter 't' add 'a' storing BLOB" },
+                new Object[] { "alter 't' add 'a' storing CLOB" },
                 new Object[] { "alter 't' add 'a' storing BOOL" },
                 new Object[] { "alter 't' add 'a' storing BOOL default_sql '1'" },
                 new Object[] { "alter 't' add 'a' storing DATE" },

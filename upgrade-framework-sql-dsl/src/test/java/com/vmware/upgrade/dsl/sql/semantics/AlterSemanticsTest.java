@@ -48,12 +48,22 @@ public class AlterSemanticsTest {
                         )
                 },
                 new Object[] {
-                        "alter 't' add 'a' storing BOOL allowing null",
+                        "alter 't' add 'a' storing BLOB",
                         SQLStatementFactory.create(
                                 new HashMap<String, String>() {{
-                                    put("ms_sql", "ALTER TABLE t ADD a TINYINT DEFAULT 0 NULL");
-                                    put("oracle", "ALTER TABLE t ADD a NUMBER(1,0) DEFAULT 0 NULL");
-                                    put("postgres", "ALTER TABLE t ADD a BOOLEAN DEFAULT FALSE NULL");
+                                    put("oracle", "ALTER TABLE t ADD a BLOB NOT NULL");
+                                    put("ms_sql", "ALTER TABLE t ADD a VARBINARY(MAX) NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a BYTEA NOT NULL");
+                                }}
+                        )
+                },
+                new Object[] {
+                        "alter 't' add 'a' storing CLOB",
+                        SQLStatementFactory.create(
+                                new HashMap<String, String>() {{
+                                    put("oracle", "ALTER TABLE t ADD a NCLOB NOT NULL");
+                                    put("ms_sql", "ALTER TABLE t ADD a NVARCHAR(MAX) NOT NULL");
+                                    put("postgres", "ALTER TABLE t ADD a TEXT NOT NULL");
                                 }}
                         )
                 },
