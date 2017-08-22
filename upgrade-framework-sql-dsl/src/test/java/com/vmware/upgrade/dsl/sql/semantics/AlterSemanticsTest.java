@@ -604,7 +604,7 @@ public class AlterSemanticsTest {
                                             "        END\n" +
                                             "        ;\n" +
                                             "ALTER TABLE t ALTER COLUMN a INT NOT NULL;\n" +
-                                            "ALTER TABLE t ADD DEFAULT ''1'' FOR a;\n" +
+                                            "ALTER TABLE t ADD DEFAULT '1' FOR a;\n" +
                                             "END;\n"
                                     );
                                     put(
@@ -657,7 +657,7 @@ public class AlterSemanticsTest {
                                             "        END\n" +
                                             "        ;\n" +
                                             "ALTER TABLE t ALTER COLUMN a TINYINT NOT NULL;\n" +
-                                            "ALTER TABLE t ADD DEFAULT '0' FOR a;\n" +
+                                            "ALTER TABLE t ADD DEFAULT 0 FOR a;\n" +
                                             "END;\n"
                                     );
                                     put(

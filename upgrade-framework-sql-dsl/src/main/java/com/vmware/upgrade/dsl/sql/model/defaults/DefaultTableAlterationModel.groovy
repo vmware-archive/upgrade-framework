@@ -322,7 +322,7 @@ END;
 BEGIN
 ${dropDefault};
 ${MS_RETYPE_COLUMN_SQL};
-ALTER TABLE ${tableName} ADD DEFAULT '${defaultValue}' FOR ${columnName};
+ALTER TABLE ${tableName} ADD DEFAULT ${defaultValue} FOR ${columnName};
 END;
 """
                         col = columnType.makeNoDefaultCopy()
