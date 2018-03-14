@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2012-2016 VMware, Inc. All Rights Reserved.
+  Copyright (c) 2012-2018 VMware, Inc. All Rights Reserved.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.vmware.vcloud</groupId>
     <artifactId>upgrade-framework-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>upgrade-framework-parent - Upgrade Framework</name>
     <url>https://github.com/vmware/upgrade-framework/</url>
@@ -33,7 +33,7 @@
         <groovy.eclipse.batch.version>2.4.3-01</groovy.eclipse.batch.version>
         <groovy.eclipse.compiler.version>2.9.2-01</groovy.eclipse.compiler.version>
         <groovy.version>2.4.8</groovy.version>
-        <jackson.version>2.8.5</jackson.version>
+        <jackson.version>2.9.4</jackson.version>
         <log4j.version>1.2.17</log4j.version>
         <org.eclipse.osgi.version>3.6.0.v20100517</org.eclipse.osgi.version>
         <testng.version>6.7</testng.version>
