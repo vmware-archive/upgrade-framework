@@ -34,6 +34,7 @@ public interface NullAware extends HasClosureMap {
      * Set the allowing of null values.
      *
      * @param arg the {@link Object} used to determine allowing of null values
+     * @return Object
      */
     public Object makeNullable(Object arg);
 

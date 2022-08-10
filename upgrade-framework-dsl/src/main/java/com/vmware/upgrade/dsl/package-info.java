@@ -31,13 +31,13 @@
  * the syntax classes for constructing this model are in {@link com.vmware.upgrade.dsl.syntax}.
  * <p>
  * This package contains the objects a consumer of the language will need to directly interface
- * with. {@link com.vmware.upgrade.dsl.Loader} is the primary entry point for consuming a script.
+ * with. com.vmware.upgrade.dsl.Loader is the primary entry point for consuming a script.
  * Implementations of {@link com.vmware.upgrade.dsl.Processor} and
  * {@link com.vmware.upgrade.dsl.TaskResolver} are used to extend the language and control the
  * {@link com.vmware.upgrade.Task}s which are produced.
  * <h3>A single-file example</h3>
  * This example demonstrates defining an upgrade and sequencing it in a manifest in a single file.
- * <h4><tt>src/main/resources/upgrade/upgrade.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/upgrade.groovy</code></h4>
  * <pre><code>
  * foo = upgrade {
  *     name "Upgrade to do 'foo'"
@@ -74,7 +74,7 @@
  * <h3>A multi-file example</h3>
  * This example demonstrates defining an upgrade within a namespace in a file included from a
  * separate file which defines a manifest which sequences the upgrade.
- * <h4><tt>src/main/resources/upgrade/baz.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/baz.groovy</code></h4>
  * <pre><code>
  * bar = namespace {
  *     foo = upgrade {
@@ -84,7 +84,7 @@
  *     }
  * }
  * </code></pre>
- * <h4><tt>src/main/resources/upgrade/manifest.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/manifest.groovy</code></h4>
  * <pre><code>
  * import "baz.groovy"
  *
@@ -98,7 +98,7 @@
  * </code></pre>
  * <h3>A manifest file for a complex graph</h3>
  * This example demonstrates the ability defining a set of upgrades to form a non-trivial graph.
- * <h4><tt>src/main/resources/upgrade/manifest.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/manifest.groovy</code></h4>
  * <pre><code>
  * import "upgrades.groovy"
  *
@@ -123,7 +123,7 @@
  * <h3>An upgrade definition with complex orchestration</h3>
  * This example demonstrates the ability to define an upgrade that explicitly controls the way in
  * which a set of {@link com.vmware.upgrade.Task}s are executed.
- * <h4><tt>src/main/resources/upgrade/upgrade.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/upgrade.groovy</code></h4>
  * <pre><code>
  * foo = upgrade {
  *     name "Run a complex set of tasks"

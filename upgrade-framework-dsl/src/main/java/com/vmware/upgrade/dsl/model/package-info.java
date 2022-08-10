@@ -24,10 +24,10 @@
  * The core model objects which compose the domain specific language for defining upgrade
  * framework constructs.
  * <p>
- * A {@link com.vmware.upgrade.dsl.model.ManifestModel} consists of
- * {@link com.vmware.upgrade.dsl.model.UpgradeTaskModel}s which reference
- * {@link com.vmware.upgrade.dsl.model.UpgradeDefinitionModel}s within
- * {@link com.vmware.upgrade.dsl.model.NamespaceModel}s
+ * A com.vmware.upgrade.dsl.model.ManifestModel consists of
+ * com.vmware.upgrade.dsl.model.UpgradeTaskModels which reference
+ * com.vmware.upgrade.dsl.model.UpgradeDefinitionModels within
+ * com.vmware.upgrade.dsl.model.NamespaceModels
  * <p>
  * (Package contains Groovy classes.)
  *
