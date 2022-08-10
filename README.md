@@ -1,6 +1,6 @@
 Overview
 =================
-[![Build Status](https://travis-ci.org/vmware/upgrade-framework.svg?branch=master)](https://travis-ci.org/vmware/upgrade-framework)
+[![Build Status](https://github.com/vmware/upgrade-framework/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/vmware/upgrade-framework/actions/workflows/maven.yml)
 
 The `upgrade-framework` is a product-agnostic framework for defining and sequencing upgrades.
 
