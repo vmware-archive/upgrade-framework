@@ -28,7 +28,7 @@
  * <h3>A simple example</h3>
  * This example demonstrates defining an upgrade which defines a single SQL statement to be
  * executed for all database types.
- * <h4><tt>src/main/resources/upgrade/upgrade.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/upgrade.groovy</code></h4>
  * <pre><code>
  * foo = upgrade {
  *     name "Upgrade to do 'foo'"
@@ -69,7 +69,7 @@
  * The first SQL statement explicitly specifies the SQL to use for each database type while the
  * second demonstrates defining a default value used for all database types for which no SQL is
  * explicitly defined.
- * <h4><tt>src/main/resources/upgrade/upgrade.groovy</tt></h4>
+ * <h4><code>src/main/resources/upgrade/upgrade.groovy</code></h4>
  * <pre><code>
  * foo = upgrade {
  *     name "Upgrade to do 'foo'"
@@ -86,10 +86,10 @@
  *     from "" to "1.0.0" call foo
  * }
  * </code></pre>
- * <h3>Leveraging {@link com.vmware.upgrade.dsl.sql.util.AgnosticSqlProcessor}</h3>
+ * <h3>Leveraging com.vmware.upgrade.dsl.sql.util.AgnosticSqlProcessor</h3>
  * This example demonstrates defining an upgrade which using keywords processed by
- * {@link com.vmware.upgrade.dsl.sql.util.AgnosticSqlProcessor}.
- * <h4><tt>src/main/resources/upgrade/upgrade.groovy</tt></h4>
+ * com.vmware.upgrade.dsl.sql.util.AgnosticSqlProcessor.
+ * <h4><code>src/main/resources/upgrade/upgrade.groovy</code></h4>
  * <pre><code>
  * foo = upgrade {
  *     name "Upgrade to do 'foo'"
@@ -141,4 +141,3 @@
  * @since 1.0
  */
 package com.vmware.upgrade.dsl.sql;
-

@@ -23,7 +23,7 @@
 /**
  * The core syntax objects which define the domain specific language for the upgrade framework.
  * <p>
- * {@link com.vmware.upgrade.dsl.syntax.ScriptSyntax} serves as the primary entry point for
+ * com.vmware.upgrade.dsl.syntax.ScriptSyntax serves as the primary entry point for
  * processing scripts.
  * <p>
  * (Package contains Groovy classes.)
