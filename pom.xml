@@ -35,9 +35,9 @@
         <groovy.version>3.0.7</groovy.version>
         <jackson.version>2.13.4</jackson.version>
         <jackson.databind.version>2.13.4.2</jackson.databind.version>
-        <log4j.version>1.2.17</log4j.version>
+        <log4j.version>1.2.24</log4j.version>
         <org.eclipse.osgi.version>3.6.0.v20100517</org.eclipse.osgi.version>
-        <testng.version>6.7</testng.version>
+        <testng.version>7.7.0</testng.version>
     </properties>
 
     <dependencyManagement>
@@ -61,9 +61,9 @@
             </dependency>
 
             <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
+               <groupId>ch.qos.reload4j</groupId>
+               <artifactId>reload4j</artifactId>
+               <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
